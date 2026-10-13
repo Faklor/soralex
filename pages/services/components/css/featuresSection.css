@@ -1,0 +1,100 @@
+.features-section {
+    padding: 60px 120px;
+    font-family: 'RobotoLight', sans-serif;
+}
+
+.features-content {
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    background: #0a0a0c;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 40px;
+    justify-content: space-between;
+}
+
+.features-text {
+    flex: 1;
+    max-width: 600px;
+}
+
+.features-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.2;
+    margin: 0 0 16px;
+}
+
+.features-description {
+    font-size: 1.2rem;
+    color: #fff;
+    line-height: 1.2;
+    margin: 0;
+}
+
+.features-items {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.feature-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 16px;
+}
+
+.feature-icon {
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.feature-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.feature-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #ffffff;
+    line-height: 1.4;
+    margin: 0;
+}
+
+.feature-divider {
+    width: 1px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 1200px) {
+    .features-content { flex-direction: column; gap: 40px; }
+    .features-text { max-width: 100%; text-align: center; }
+    .features-items { flex-wrap: wrap; justify-content: center; }
+}
+
+@media (max-width: 768px) {
+    .features-section { padding: 40px 20px; margin: 0 20px 60px; }
+    .features-title { font-size: 2rem; }
+    .features-items { flex-direction: column; gap: 30px; }
+    .feature-divider { display: none; }
+    .feature-item { flex-direction: row; text-align: left; gap: 20px; }
+    .feature-icon { width: 48px; height: 48px; flex-shrink: 0; }
+}
+
+@media (max-width: 480px) {
+    .features-title { font-size: 1.8rem; }
+    .features-description { font-size: 1rem; }
+    .feature-title { font-size: 0.95rem; }
+}

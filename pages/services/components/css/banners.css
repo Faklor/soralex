@@ -1,0 +1,301 @@
+/* === HERO СЕКЦИЯ BANNERS === */
+.banners-hero {
+    padding: 50px 120px 200px;
+    padding: 50px 120px 0px;
+    background: #0a0a0c;
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+    position: relative; 
+    overflow: hidden;
+     /* background:url('../../../../assets/img/looper.png') center/cover no-repeat;
+     background-size: 100%; */
+}
+
+.hero-blick {
+    position: absolute;
+    top: -50px;         /* Сдвигаем вверх, чтобы центр блика был в углу */
+    left: -500px;       /* Сдвигаем вправо */
+    width: 1000px;       /* Размер блика — подбери под свою картинку */
+    height: auto;
+    opacity: 1;       /* Прозрачность, чтобы не был слишком ярким */
+    pointer-events: none; /* Чтобы не мешал кликам */
+    z-index: 2;         /* Поверх фона, но под контентом */
+    mix-blend-mode: screen; /* Режим наложения для красивого свечения */
+}
+
+/* Затемняющий слой */
+.banners-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(10, 10, 12, 0.85); /* Черный полупрозрачный слой */
+    z-index: 0;
+}
+
+/* Фоновая картинка */
+.banners-hero::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('../../../../assets/img/looper.png') center right/cover no-repeat;
+    background-position: 100% center; /* Сдвиг вправо (0% - лево, 50% - центр, 100% - право) */
+    opacity: 0.5; /* Дополнительное затемнение */
+    z-index: 0;
+    background-size: 60%;
+}
+
+.banners-content {
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+   
+}
+
+/* === ТЕКСТОВАЯ ЧАСТЬ === */
+.banners-text {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.banners-title {
+    font-size: 70px;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1;
+    margin: 0;
+}
+
+.banners-title .title-red {
+    color: #FF0036;
+    display: block;
+}
+
+.banners-description {
+    font-size: 24px;
+    color: #ffffff;
+    line-height: 1.2;
+    margin: 0;
+    font-family: 'RobotoLight';
+}
+
+.banners-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 32px;
+    background: #FF0036;
+    color: #ffffff;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 300;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    width: fit-content;
+    margin-top: 8px;
+    
+}
+
+.banners-cta-btn:hover {
+    background: #ff1a44;
+    transform: translateY(-2px);
+    /* box-shadow: 0 8px 24px rgba(255, 0, 54, 0.4); */
+}
+
+.banners-cta-btn svg {
+    transition: transform 0.3s ease;
+}
+
+.banners-cta-btn:hover svg {
+    transform: translateX(4px);
+}
+
+/* === ВИЗУАЛЬНАЯ ЧАСТЬ === */
+.banners-visuals {
+    display: flex;
+    /* justify-content: center;
+    align-items: center; */
+    position: relative;
+    
+}
+
+.visuals-composition {
+    position: relative;
+    width: 100%;
+}
+
+/* === АНИМАЦИЯ ПАРЕНИЯ === */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0) ;
+    }
+    50% {
+        transform: translateY(-10px) ;
+    }
+}
+
+@keyframes floatPhone {
+    0%, 100% {
+        transform: translate(-50%, -50%) translateY(0);
+    }
+    50% {
+        transform: translate(-50%, -50%) translateY(-15px);
+        /* transform: translate(-50%, -50%) translateY(0); */
+    }
+}
+
+/* === КАРТОЧКИ АРТОВ === */
+.art-card {
+    position: absolute;
+    /* background: #1a1a1e; */
+    /* border: 1px solid rgba(255, 255, 255, 0.1); */
+    /* border-radius: 12px; */
+    overflow: hidden;
+    /* box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4); */
+    transition: transform 0.3s ease;
+    animation: float 6s ease-in-out infinite;
+    
+    
+}
+
+
+
+.art-card img {
+    width: 100%;
+    height: 100%;
+    /* object-fit: cover; */
+    display: block;
+}
+
+.art-label {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    /* background: rgba(0, 0, 0, 0.75); */
+    /* backdrop-filter: blur(4px); */
+    color: #ffffff;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    line-height: 1.3;
+    pointer-events: none;
+}
+
+/* Позиционирование карточек с разными задержками анимации */
+.art-top-left {
+    top: 10px;
+    left: -50px;
+    animation-delay: 0s;
+}
+.art-bottom-left {
+    bottom: 10px;
+    left: -20px;
+    animation-delay: 2s;
+}
+
+
+.art-top-right {
+    top: 10px;
+    right: 40px;
+    animation-delay: 1s;
+}
+.art-bottom-right {
+    bottom: 10px;
+    right: 5px;
+    animation-delay: 1.5s;
+}
+
+/* === ТЕЛЕФОН === */
+.phone-mockup {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 10;
+    animation: floatPhone 7s ease-in-out infinite;
+}
+
+.phone-mockup img {
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.6));
+}
+
+/* === АДАПТАЦИЯ === */
+@media (max-width: 1200px) {
+    .banners-content {
+        grid-template-columns: 1fr;
+        gap: 50px;
+        text-align: center;
+    }
+    
+    .banners-text {
+        align-items: center;
+    }
+    
+    .banners-title {
+        font-size: 2.8rem;
+    }
+    
+    .visuals-composition {
+        height: 400px;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .banners-hero {
+        padding: 60px 20px 40px;
+    }
+    
+    .banners-title {
+        font-size: 2.2rem;
+    }
+    
+    .banners-description {
+        font-size: 1rem;
+    }
+    
+    .visuals-composition {
+        height: 350px;
+    }
+    
+    .art-top-left { width: 140px; height: 90px; }
+    .art-top-right { width: 130px; height: 110px; }
+    .art-bottom-left { width: 160px; height: 100px; }
+    .art-bottom-right { width: 140px; height: 120px; }
+    
+    .phone-mockup {
+        width: 180px;
+    }
+}
+
+@media (max-width: 480px) {
+    .banners-title {
+        font-size: 1.8rem;
+    }
+    
+    .visuals-composition {
+        height: 300px;
+    }
+    
+    .art-card {
+        display: none;
+    }
+    
+    .phone-mockup {
+        width: 160px;
+    }
+}

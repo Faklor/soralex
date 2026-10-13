@@ -1,0 +1,66 @@
+/* components/css/app-header.css */
+
+header {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 100px;
+  
+  background-color: transparent; 
+  
+  position: fixed;
+  top: 0;
+  z-index: 100;
+  
+  /* === ИСПРАВЛЕНИЕ: вместо width: 100% используем привязку к краям === */
+  left: 0;
+  right: 0;
+  
+  transition: background-color 0.4s ease, backdrop-filter 0.4s ease;
+}
+
+header.scrolled {
+  background-color: rgba(13, 13, 15, 0.85); 
+  backdrop-filter: blur(12px); 
+  -webkit-backdrop-filter: blur(12px); 
+  /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);  */
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+}
+
+/* Адаптация */
+@media (max-width: 1024px) {
+  header {
+    padding: 0 20px; /* Чуть больше воздуха по краям на мобильном */
+  }
+  
+  header.scrolled {
+    background-color: rgba(13, 13, 15, 0.95);
+  }
+
+  .header-actions{
+    margin-right: 10px;
+  }
+}
+
+
+@media (max-width: 768px) {
+  header {
+    padding: 0 40px; /* Чуть больше воздуха по краям на мобильном */
+  }
+  
+  header.scrolled {
+    background-color: rgba(13, 13, 15, 0.95);
+  }
+}
+
+@media (min-width: 2560px) {
+  header {
+    padding: 0 410px; 
+  }
+}

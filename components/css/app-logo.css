@@ -1,0 +1,61 @@
+:host {
+  display: inline-flex;
+  align-items: center;
+}
+
+.logo-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 4px; /* Для красивой обводки при фокусе с клавиатуры */
+  overflow: hidden; /* Чтобы блик не вылезал за границы */
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Легкий эффект при наведении на весь логотип */
+.logo-container:hover {
+  opacity: 0.85;
+  /* transform: scale(1.02);  Раскомментируйте, если хотите легкое увеличение */
+}
+
+/* Доступность: подсветка при навигации клавишей Tab */
+.logo-container:focus-visible {
+  outline: 2px solid #FF0036;
+  outline-offset: 4px;
+}
+
+/* Стили для картинки логотипа */
+.logo-image {
+  display: block;
+  height: 40px; /* 🔥 ГЛАВНАЯ НАСТРОЙКА: измените это число под высоту вашего хедера (например, 32px, 40px или 48px) */
+  width: auto;  /* Ширина подстроится автоматически, сохраняя пропорции */
+  object-fit: contain;
+}
+
+/* === ПРЕМИАЛЬНЫЙ БЛИК (оставили, но адаптировали под картинку) === */
+.logo-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%; /* Более узкий блик выглядит дороже */
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.25),
+    transparent
+  );
+  pointer-events: none;
+  mix-blend-mode: screen;
+  
+  /* Раскомментируйте строчку ниже, если хотите, чтобы блик пробегал автоматически */
+  /* animation: shineLogo 6s ease-in-out infinite; */
+}
+
+@keyframes shineLogo {
+  0%, 100% { left: -100%; }
+  50% { left: 200%; }
+}

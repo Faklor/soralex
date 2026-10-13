@@ -1,0 +1,171 @@
+@keyframes gentleFloat {
+    0%, 100% {
+        transform: translateY(0);
+        filter: drop-shadow(0 0 0 rgba(255, 0, 52, 0));
+    }
+    50% {
+        transform: translateY(-3px);
+        filter: drop-shadow(0 4px 6px rgba(255, 0, 52, 0.15));
+    }
+}
+
+.home-features-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 10;
+
+    background-color: rgba(22,16,19,0.1);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 10px 0;
+     backdrop-filter: blur(10px); 
+     -webkit-backdrop-filter: blur(10px); 
+
+}
+
+/* 1. БАЗОВЫЕ СТИЛИ ДЛЯ ВСЕХ БЛОКОВ */
+.home-feature-item {
+    display: flex;
+    align-items: center;
+    gap: 12px; 
+    padding: 10px 20px;
+    /* background-color: #111113;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05); */
+    position: relative;
+    
+}
+
+/* 2. СТИЛИ ДЛЯ ИНТЕРАКТИВНЫХ БЛОКОВ (с тултипом) */
+.home-feature-item.has-tooltip {
+    cursor: default; /* Убираем cursor: help с всего блока */
+    transition: all 0.3s ease;
+}
+
+
+
+/* 3. ИКОНКА: плавает всегда */
+.home-feature-item > svg:first-child {
+    flex-shrink: 0;
+    width: 25px;
+    height: auto;
+   
+}
+
+.home-feature-item.has-tooltip > svg:first-child {
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+
+
+.home-feature-item span {
+    
+    color: #ffffff;
+     font-family: "RobotoLight";
+    font-size: 20px;
+    font-weight: 300;
+}
+
+/* === 4. ИКОНКА ВОПРОСА И ТУЛТИП (ГЛАВНОЕ ИЗМЕНЕНИЕ) === */
+
+.tooltip-icon {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    cursor: help; /* Курсор-вопрос только на самой иконке */
+    opacity: 0.8;
+    transition: all 0.3s ease;
+    margin-left: auto; /* Прижимает иконку вопроса вправо, если текст длинный */
+}
+
+/* Подсветка иконки вопроса ТОЛЬКО при наведении на неё */
+.tooltip-icon:hover {
+    opacity: 1;
+    transform: scale(1.15);
+    filter: drop-shadow(0 0 6px rgba(255, 0, 54, 0.8));
+}
+
+/* Сама подсказка */
+.tooltip-text {
+    position: absolute;
+    bottom: calc(100% + 12px);
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: #1a1a1a;
+    color: #fff;
+    padding: 10px 16px;
+    border-radius: 8px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 100;
+    
+    
+    pointer-events: auto; 
+
+   font-family: "RobotoLight";
+    font-size: 18px;
+    font-weight: 300;
+    
+}
+
+.tooltip-text::before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -6px;
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid #1a1a1a;
+}
+
+/* === МАГИЯ ЗДЕСЬ === */
+/* Показываем подсказку ТОЛЬКО если наведена мышь на иконку вопроса (~) ИЛИ на саму подсказку */
+.home-feature-item .tooltip-icon:hover ~ .tooltip-text,
+.home-feature-item .tooltip-text:hover {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+
+
+@media (max-width: 1400px) {
+   .home-features-list{
+        max-width: 460px;
+   }
+}
+
+@media (max-width: 768px) {
+    .home-features-list{
+        max-width: 760px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+   }
+    .home-feature-item {
+        padding: 14px 16px;
+    }
+    
+    .home-feature-item > svg:first-child {
+        width: 24px;
+    }
+    
+    .home-feature-item span {
+        font-size: 0.95rem;
+    }
+    
+    .tooltip-text {
+        white-space: normal;
+        max-width: 220px;
+        text-align: center;
+        left: 50%;
+        bottom: calc(100% + 8px);
+    }
+}

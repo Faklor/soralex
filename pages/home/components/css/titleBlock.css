@@ -1,0 +1,180 @@
+/* === БАЗОВЫЕ СТИЛИ (мобильные по умолчанию) === */
+.hero-block h1 {
+    font-size: 52px;
+    font-weight: 800;
+    line-height: 1.2;
+    margin:0;
+    margin-bottom: 24px;
+    color: #ffffff;
+
+}
+
+.hero-block h1 span {
+    color: #FF0036;
+}
+
+.hero-block p {
+    font-size: clamp(16px, 2vw, 20px);
+    color: #c2c2c2;
+    line-height: 1.2;
+    margin-bottom: 40px;
+    max-width: 480px;
+    font-family: 'RobotoLight';
+}
+
+.buttons {
+    --btn-width: 240px;
+    --btn-height: 56px;
+    
+    display: flex;
+    gap: 16px;
+    flex-wrap: nowrap;
+    max-width: 700px;
+}
+
+.btn {
+    width: var(--btn-width);
+    height: var(--btn-height);
+    
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    
+    padding: 0 24px;
+    border-radius: 8px;
+    font-weight: 300;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: none;
+    gap: 8px;
+    box-sizing: border-box;
+    
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.btn-primary {
+    background-color: #FF0036;
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: #ffffff;
+    border: 1px solid #333;
+}
+
+.btn-secondary:hover {
+    transform: translateY(-2px);
+}
+
+
+
+/* === 768px: Планшеты портрет / Большие мобильные === */
+@media (min-width: 481px) and (max-width: 768px) {
+    .hero-block h1 {
+        font-size: 52px;
+         max-width: 600px;
+        margin:0px auto;
+        padding-bottom: 40px;
+        text-align: start;
+    }
+    
+    .hero-block p {
+        font-size: 18px;
+        max-width: 600px;
+        margin:0px auto;
+        text-align: start;
+        padding-bottom: 40px;
+
+    }
+    
+    .buttons {
+        
+        max-width: 600px;
+        margin:0 auto;
+        flex-direction: column;
+        
+    }
+    
+    .btn {
+        width: 100%;
+        max-width: 100%;
+    }
+}
+
+/* === 1024px: Планшеты альбом === */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .hero-block h1 {
+        font-size: 40px;
+    }
+    
+    .hero-block p {
+        font-size: 18px;
+    }
+    
+    .buttons {
+        --btn-width: 200px;
+        --btn-height: 52px;
+    }
+}
+
+/* === 1280px: Маленькие ноутбуки / FullHD с масштабом 150% === */
+@media (min-width: 1025px) and (max-width: 1280px) {
+    .hero-block h1 {
+        font-size: 35px;
+    }
+    
+    .hero-block p {
+        font-size: 18px;
+    }
+    
+    .buttons {
+        --btn-width: 220px;
+        --btn-height: 54px;
+    }
+}
+
+/* === 1440px: Стандартные ноутбуки === */
+@media (min-width: 1281px) and (max-width: 1440px) {
+    .hero-block h1 {
+        font-size: 40px;
+    }
+    
+    .hero-block p {
+        font-size: 19px;
+    }
+    
+    .buttons {
+        --btn-width: 230px;
+        --btn-height: 54px;
+    }
+}
+
+/* === 1536px: FullHD (1920px) с масштабом 125% === */
+/* При масштабе 125% браузер видит viewport ~1536px */
+@media (min-width: 1441px) and (max-width: 1750px) {
+    .hero-block h1 {
+        font-size: 45px;
+    }
+    
+    .hero-block p {
+        font-size: 20px;
+    }
+    
+    .buttons {
+        --btn-width: 235px;
+        --btn-height: 56px;
+    }
+}
+

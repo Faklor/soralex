@@ -1,0 +1,67 @@
+:host {
+  position: fixed;
+  inset: 0;
+  background-color: #0D0D0F;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+:host(.hidden) {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.preloader-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible !important;
+   shape-rendering: crispEdges;
+}
+
+.loader-svg {
+  width: 180px;
+  height: auto;
+  overflow: visible;
+  shape-rendering: crispEdges; 
+}
+
+.logo-part {
+  fill: #FF0036;
+  transform-origin: center;
+  shape-rendering: crispEdges;
+  will-change: transform, opacity; /* Гарантируем 60 FPS */
+  
+}
+
+/* ЕДИНАЯ АНИМАЦИЯ: Сборка -> Увеличение -> Разлёт */
+@keyframes assembleAndScatter {
+  0% {
+    opacity: 0;
+    transform: translate(var(--tx-start, 0), var(--ty-start, 0)) scale(0.1);
+  }
+  
+  /* Сборка: увеличиваем на 2%, чтобы перекрыть щели */
+  30% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1); /* ← ИЗМЕНЕНО: было scale(1) */
+  }
+  
+  /* Запечатывание: увеличиваем еще сильнее для гарантии */
+  45% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1); /* ← ИЗМЕНЕНО: было scale(1.08) */
+  }
+  
+  
+  
+  /* Разлёт */
+  100% {
+    opacity: 0;
+    transform: translate(var(--tx-end, 0), var(--ty-end, 0)) scale(0);
+  }
+}

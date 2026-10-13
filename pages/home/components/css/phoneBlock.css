@@ -1,0 +1,237 @@
+.showcase-wrapper {
+    position: relative;
+    width: 100%;
+    height: 480px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    overflow: visible;
+    visibility: hidden;
+}
+
+.phone-3d-container {
+    position: relative;
+    z-index: 10;
+    perspective: 1500px;
+    /* Увеличенные базовые размеры */
+    width: 230px; 
+    height: 460px;
+    cursor: pointer;
+}
+
+.phone-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    animation: float3D 12s ease-in-out infinite;
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.phone-3d-container:hover .phone-inner {
+    animation: none;
+    transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) translateY(0);
+    transition: transform 0.1s linear;
+}
+
+@keyframes float3D {
+    0%, 100% {
+        transform: translateY(0px) rotateZ(0deg);
+    }
+    15% {
+        transform: translateY(-5px) rotateZ(0deg);
+    }
+    30% {
+        transform: translateY(-10px) rotateZ(12deg) rotateY(-20deg);
+    }
+    45% {
+        transform: translateY(-5px) rotateZ(12deg) rotateY(-20deg);
+    }
+    55% {
+        transform: translateY(-10px) rotateZ(12deg) rotateY(-20deg);
+    }
+}
+
+/* === КРУГЛОЕ СВЕЧЕНИЕ ПОЗАДИ ТЕЛЕФОНА === */
+/* === КРУГЛОЕ СВЕЧЕНИЕ ПОЗАДИ ТЕЛЕФОНА (В СТИЛЕ МАТРИЦЫ) === */
+.phone-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 550px; /* Чуть больше для мягкого фонового света */
+    height: 550px;
+    /* Градиент точно как у "горячих" точек: белый центр -> супер красный -> прозрачность */
+    background: radial-gradient(
+        circle,
+        rgba(255, 220, 220, 0.3) 0%,    /* Мягкое бело-розовое ядро */
+        rgba(255, 0, 52, 0.25) 35%,     /* Супер красный цвет (как у точек) */
+        rgba(255, 0, 52, 0) 70%         /* Плавное исчезновение */
+    );
+    border-radius: 50%;
+    filter: blur(60px); /* Увеличенное размытие для мягкого фонового эффекта */
+    z-index: -1; 
+    pointer-events: none;
+    animation: glowPulse 5s ease-in-out infinite; /* Более медленное, "дышащее" движение */
+}
+
+@keyframes glowPulse {
+    0%, 100% { 
+        opacity: 0.6; 
+        transform: translate(-50%, -50%) scale(1); 
+    }
+    50% { 
+        opacity: 1; 
+        /* Увеличение масштаба имитирует момент, когда точка "всплывает" наверх и становится ярче/больше */
+        transform: translate(-50%, -50%) scale(1.15); 
+    }
+}
+
+/* === ОТРАЖЕНИЕ НА ЭКРАНЕ (с легким красным оттенком от свечения) === */
+.screen-reflection {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    width: 206px;
+    height: 436px;
+    border-radius: 26px;
+    background: linear-gradient(
+        135deg,
+        rgba(255, 100, 100, 0.12) 0%, /* Легкий красный отблеск сверху */
+        rgba(255, 255, 255, 0.04) 30%,
+        transparent 50%,
+        transparent 100%
+    );
+    z-index: 20;
+    pointer-events: none;
+}
+
+/* Остальные стили (.phone-svg-body, .preloader, .spinner и т.д.) остаются без изменений */
+
+.phone-svg-body {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    pointer-events: none;
+    filter: drop-shadow(0 0 1px rgba(255, 0, 54, 0.8));
+}
+
+.phone-svg-notch {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 25;
+    pointer-events: none;
+}
+
+/* === ВНУТРЕННОСТИ ТЕЛЕФОНА (под 230x460) === */
+/* 230 - 24 = 206px ширина экрана */
+/* 460 - 24 = 436px высота экрана */
+.preloader,
+.playable-screen {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    width: 206px;
+    height: 436px;
+    border-radius: 26px;
+    overflow: hidden;
+    background-color: #000;
+}
+
+.playable-screen {
+    z-index: 10;
+    border: none;
+}
+
+.preloader {
+    z-index: 12;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    transition: opacity 0.4s ease;
+}
+
+.preloader-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: blur(8px) brightness(0.6);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.preloader.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.spinner {
+    position: relative;
+    z-index: 13;
+    width: 36px;
+    height: 36px;
+    border: 3px solid rgba(255, 255, 255, 0.15);
+    border-top-color: #FF0036;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+
+
+.inactivity-indicator {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(255, 0, 54, 0.9);
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 25;
+    pointer-events: none;
+    backdrop-filter: blur(4px);
+    /* box-shadow: 0 4px 12px rgba(255, 0, 54, 0.4); */
+}
+
+.inactivity-indicator .countdown {
+    color: #fff;
+    font-weight: 800;
+    font-size: 1rem;
+}
+
+.inactivity-indicator:hover {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* === АДАПТАЦИЯ === */
+@media (max-width: 768px) {
+    .showcase-wrapper {
+        height: 400px;
+    }
+    
+    .phone-3d-container {
+        transform: scale(0.75);
+        transform-origin: center center;
+    }
+}

@@ -1,0 +1,106 @@
+/* === СЕКЦИЯ ПЛАТФОРМ === */
+.platforms-section {
+    padding: 40px 40px 40px;
+    margin-bottom: 50px;
+}
+
+
+
+/* Заголовок */
+.platforms-header {
+    margin-bottom: 10px;
+}
+
+.platforms-header h2 {
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: #bbbbbb;
+    margin: 0;
+}
+
+/* Сетка логотипов */
+.platforms-grid {
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: space-between; 
+    align-items: center; 
+    gap: 24px 20px; 
+    padding: 20px 0;
+}
+
+/* Отдельный элемент логотипа - БЕЗ фиксированной ширины */
+.platform-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+    
+}
+
+
+.platform-logo {
+    max-width: 100%;
+    height: auto;
+    max-height: 40px;
+    transition: all 0.3s ease;
+}
+
+
+
+/* === АДАПТАЦИЯ === */
+@media (max-width: 1440px) {
+    .platforms-grid {
+        grid-template-columns: repeat(6, 1fr);
+        gap: 24px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .platforms-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+    }
+    
+    .platforms-header h2 {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .platforms-section {
+        padding: 60px 20px 30px;
+        margin-top: 40px;
+    }
+    
+    .platforms-header {
+        margin-bottom: 32px;
+    }
+    
+    .platforms-header h2 {
+        font-size: 1.2rem;
+    }
+    
+    .platforms-grid {
+        gap: 18px 28px;
+    }
+    
+    .platform-logo {
+        max-height: 36px;
+    }
+    
+    .platform-logo {
+        max-height: 32px;
+    }
+}
+
+@media (max-width: 480px) {
+   .platforms-grid {
+        gap: 14px 20px;
+        
+    }
+    
+    .platform-logo {
+        max-height: 28px;
+        align-items: center;
+    }
+}

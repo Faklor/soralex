@@ -1,0 +1,99 @@
+/* === ОБЩИЕ СТИЛИ СТРАНИЦЫ === */
+.process-page {
+    padding: 20px 80px 50px 80px;
+    animation: fadeIn 0.8s ease-out;
+    font-family: "RobotoMedium";
+    background: #0a0a0c;
+}
+
+
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* === ВЕРХНЯЯ ЧАСТЬ: ЗАГОЛОВОК + ОПИСАНИЕ === */
+.process-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    margin-bottom: 80px;
+    padding: 0 20px;
+    padding-top: 20px;
+    align-items: center;
+}
+
+.process-title h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #ffffff;
+    margin: 0;
+}
+
+.process-title h1 span {
+    color: #FF0036;
+}
+
+.process-description p {
+    font-size: 25px;
+    color: #a0a0a0;
+    line-height: 1.1;
+    margin: 0;
+    text-align: justify;
+    padding:0 0px 0 0px;
+    font-weight: 300;
+    font-family: 'RobotoLight';
+
+
+
+}
+
+/* === СЕКЦИЯ ШАГОВ: 6 КОЛОНОК === */
+.process-steps {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 20px;
+    padding: 0 20px;
+}
+
+/* === АДАПТАЦИЯ === */
+@media (max-width: 1440px) {
+    .process-steps {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 1024px) {
+    .process-header {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .process-title h1 {
+        font-size: 2.5rem;
+    }
+    
+    .process-steps {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .process-page {
+        padding: 20px 0;
+    }
+    
+    .process-title h1 {
+        font-size: 2rem;
+    }
+    
+    .process-description p {
+        font-size: 1rem;
+    }
+    
+    .process-steps {
+        grid-template-columns: 1fr;
+    }
+}

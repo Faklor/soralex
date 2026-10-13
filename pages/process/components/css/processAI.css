@@ -1,0 +1,43 @@
+.ai-features-row {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 20px;
+    padding: 0 20px;
+    margin-top: 20px;
+}
+
+
+
+.ai-feature {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.ai-diamond {
+    color: #FFFFFF;
+    font-size: 1rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.ai-feature p {
+    font-size: 0.85rem;
+    color: #888;
+    line-height: 1.4;
+    margin: 0;
+}
+
+/* Адаптация */
+@media (max-width: 1440px) {
+    .ai-features-row {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .ai-features-row {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+}

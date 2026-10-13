@@ -1,0 +1,279 @@
+
+@font-face {
+  font-family: 'RobotoLight';
+  src: url('assets/fonts/Roboto-Light.woff2') format('woff2');
+   font-display: swap;
+  
+}
+
+@font-face {
+  font-family: 'RobotoMedium';
+  src: url('assets/fonts/Roboto-Medium.woff2') format('woff2');
+   font-display: swap;
+  
+}
+
+@font-face {
+  font-family: 'RobotoBold';
+  src: url('assets/fonts/Roboto-Bold.woff2') format('woff2');
+   font-display: swap;
+  
+}
+
+
+
+/* global.css */
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: #FF0036 #0D0D0F;
+}
+
+
+html, body {
+  font-family: 'RobotoMedium', system-ui, -apple-system, sans-serif;
+  font-weight: 300; 
+  width: 100%;
+   /* overflow-x: hidden; */
+}
+
+
+html {
+  scroll-behavior: smooth;
+  /* scrollbar-gutter: stable; 
+    overflow-y: scroll;  */
+}
+
+
+::-webkit-scrollbar {
+  width: 8px; 
+  height: 8px; 
+}
+
+
+::-webkit-scrollbar-track {
+  background: #0D0D0F; 
+  border-radius: 4px;
+}
+
+
+::-webkit-scrollbar-thumb {
+  background: #FF0036; 
+  border-radius: 4px;
+  transition: background 0.3s ease;
+}
+
+
+::-webkit-scrollbar-thumb:hover {
+  background: #cc002b; 
+}
+
+
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  color: #fff;
+  line-height: 1.6;
+  background-color: #0D0D0F;
+ 
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+   overflow-x: hidden;
+}
+
+main {
+  width: 100%;
+  padding: 0px 0 10px;
+  
+}
+
+h1 {
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.landing-main {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.landing-section {
+    width: 100%;
+    
+    scroll-margin-top: 100px; 
+}
+
+
+
+
+.container {
+  width: 100%;
+  max-width: 1920px;
+  
+  padding: 0 0;
+  
+}
+
+
+
+html.preloader-active, 
+body.preloader-active {
+    overflow: hidden !important;
+    
+    scrollbar-gutter: stable !important; 
+}
+.container.preloader-active,
+main.preloader-active,
+.landing-main.preloader-active {
+    overflow: hidden !important;
+}
+
+
+
+
+/* Адаптация для планшетов и мобильных */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 0px;
+  }
+  
+  main {
+    padding: 0px 0;
+  }
+
+  body {
+   
+    overflow-x: hidden;
+  }
+}
+
+
+@media (min-width: 2560px) {
+  .container {
+    max-width:1920px; 
+    padding: 0 0px;   
+  }
+}
+
+
+
+
+
+/* Стили для модального окна */
+#hcaptcha-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hcaptcha-modal-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(4px);
+}
+
+.hcaptcha-modal-content {
+    position: relative;
+    background: #111114;
+    border-radius: 16px;
+    padding: 30px;
+    max-width: 420px;
+    width: 90%;
+    
+    z-index: 1;
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hcaptcha-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.hcaptcha-modal-header h3 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.hcaptcha-modal-close {
+    background: transparent;
+    border: none;
+    color: #888;
+    font-size: 2rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.3s ease;
+}
+
+.hcaptcha-modal-close:hover {
+    color: #FF0036;
+}
+
+.hcaptcha-modal-body {
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.hcaptcha-modal-hint {
+    margin: 0;
+    color: #666;
+    font-size: 0.85rem;
+    text-align: center;
+}
+
+/* Адаптация для мобильных */
+@media (max-width: 480px) {
+    .hcaptcha-modal-content {
+        padding: 20px;
+        width: 95%;
+    }
+    
+    .hcaptcha-modal-header h3 {
+        font-size: 1.1rem;
+    }
+}
+
+
+
+
+

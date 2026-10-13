@@ -1,0 +1,540 @@
+/* === УТИЛИТЫ (локальные для компонента) === */
+.ac-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* === СЕКЦИЯ CONTACT === */
+.ac-section {
+    padding: 20px 40px;
+    background: #0D0D0F;
+    font-family: 'RobotoMedium', sans-serif;
+}
+
+.ac-container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 45px;
+    align-items: stretch;
+}
+
+/* === ЛЕВАЯ ЧАСТЬ === */
+.ac-left {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.ac-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0 0 18px;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+}
+
+.ac-title-red {
+    color: #FF0036;
+}
+
+.ac-subtitle {
+    font-size: 1.2rem;
+    color: #fff;
+    line-height: 1.2;
+    margin: 0 0 28px;
+    font-family: 'RobotoLight', sans-serif;
+}
+
+.ac-team-photo {
+    position: relative;
+    width: 100%;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-top: auto;
+    max-height: 480px;
+}
+
+.ac-team-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transform: scale(0.9);
+    transform-origin: center center;
+}
+
+.ac-team-photo::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    box-shadow: inset 0 0 150px 60px #0D0D0F, inset 0 0 20px 50px #0D0D0F;
+}
+
+/* === ПРАВАЯ ЧАСТЬ: ФОРМА === */
+.ac-right {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.ac-form-wrapper {
+    width: 100%;
+    height: 100%;
+    background: #111114;
+    border: 1px solid #FF0036;
+    border-radius: 16px;
+    padding: 30px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.ac-form-title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0 0 24px;
+}
+
+/* === ФОРМА === */
+.ac-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    font-family: 'RobotoLight', sans-serif;
+}
+
+.ac-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.ac-form-group {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.ac-input,
+.ac-textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 13px 17px;
+    background: #1a1a1e;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: #ffffff;
+    font-size: 0.95rem;
+    font-family: inherit;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.ac-input::placeholder,
+.ac-textarea::placeholder {
+    color: #666;
+}
+
+.ac-input:focus,
+.ac-textarea:focus {
+    border-color: #FF0036;
+    background: #1e1e22;
+}
+
+.ac-textarea-group {
+    position: relative;
+}
+
+.ac-textarea {
+    min-height: 105px;
+    resize: vertical;
+}
+
+.ac-char-counter {
+    position: absolute;
+    bottom: 10px;
+    right: 14px;
+    font-size: 0.8rem;
+    color: #666;
+    pointer-events: none;
+}
+
+.ac-message-hint {
+    display: block;
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 6px;
+}
+
+/* === ОШИБКИ И УСПЕХ === */
+.ac-form-error {
+    color: #ff4444;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    min-height: 20px;
+}
+
+.ac-form-thanks {
+    text-align: center;
+    padding: 40px 20px;
+    color: #ffffff;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    animation: ac-fadeIn 0.5s ease-out;
+}
+
+/* === ЧЕКБОКС === */
+.ac-form-checkbox {
+    margin-top: 5px;
+}
+
+.ac-checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 11px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.ac-checkbox-label input[type="checkbox"] {
+    display: none;
+}
+
+.ac-checkbox-custom {
+    width: 21px;
+    height: 21px;
+    min-width: 21px;
+    background: #1a1a1e;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    margin-top: 4px;
+}
+
+.ac-checkbox-label input[type="checkbox"]:checked + .ac-checkbox-custom {
+    background: #FF0036;
+    border-color: #FF0036;
+}
+
+.ac-checkbox-label input[type="checkbox"]:checked + .ac-checkbox-custom::after {
+    content: '';
+    width: 5px;
+    height: 9px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    margin-bottom: 2px;
+}
+
+.ac-checkbox-text {
+    font-size: 0.9rem;
+    color: #888;
+    line-height: 1.4;
+    align-self: center;
+    margin-top: 5px;
+}
+
+.ac-terms-link {
+    color: #ffffff;
+    text-decoration: underline;
+    transition: color 0.3s ease;
+}
+
+.ac-terms-link:hover {
+    color: #FF0036;
+}
+
+/* === КНОПКА ОТПРАВКИ === */
+.ac-submit-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 11px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 15px 28px;
+    background: #FF0036;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 5px;
+}
+
+.ac-submit-btn:hover {
+    background: #cc002b;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(255, 0, 54, 0.3);
+}
+
+.ac-submit-btn:disabled {
+    background: #666;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.ac-submit-btn svg {
+    width: 22px;
+    height: 22px;
+    transition: transform 0.3s ease;
+}
+
+.ac-submit-btn:hover:not(:disabled) svg {
+    transform: translateX(4px);
+}
+
+/* === РАЗДЕЛИТЕЛЬ === */
+.ac-form-divider {
+    width: 100%;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 18px 0;
+}
+
+/* === ПРЯМОЙ КОНТАКТ === */
+.ac-direct-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.ac-direct-title {
+    font-size: 0.93rem;
+    color: #888;
+    margin: 0 0 2px;
+}
+
+.ac-direct-link {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: #888;
+    text-decoration: none;
+    font-size: 0.88rem;
+    transition: color 0.3s ease;
+    word-break: break-all;
+}
+
+.ac-direct-link:hover {
+    color: #FF0036;
+}
+
+.ac-direct-link svg {
+    flex-shrink: 0;
+}
+
+/* === БЛОК ВЫБРАННОГО ТАРИФА === */
+.ac-selected-package {
+    background: rgba(255, 0, 54, 0.05);
+    border: 1px solid rgba(255, 0, 54, 0.2);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 24px;
+    animation: ac-fadeIn 0.4s ease-out;
+}
+
+.ac-package-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.ac-package-icon {
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ac-package-icon .price-svg-icon {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+.ac-package-icon img {
+    display: none;
+}
+
+.ac-package-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.ac-package-label {
+    display: block;
+    font-size: 0.75rem;
+    color: #666;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.ac-package-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0 0 4px;
+    line-height: 1.3;
+}
+
+.ac-package-price {
+    font-size: 0.9rem;
+    color: #FF0034;
+    font-weight: 600;
+}
+
+.ac-package-actions {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.ac-clear-btn,
+.ac-change-btn {
+    padding: 8px 16px;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    color: #ffffff;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.ac-clear-btn:hover {
+    border-color: #ff4444;
+    color: #ff4444;
+    background: rgba(255, 68, 68, 0.05);
+}
+
+.ac-change-btn:hover {
+    border-color: #FF0034;
+    color: #FF0034;
+    background: rgba(255, 0, 54, 0.05);
+}
+
+@keyframes ac-fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* === АНИМАЦИЯ SVG ИКОНОК === */
+.ac-package-icon .icon-draw,
+.ac-package-icon .icon-flow,
+.ac-package-icon .icon-flow-delay-1,
+.ac-package-icon .icon-flow-delay-2,
+.ac-package-icon .icon-flow-delay-3,
+.ac-package-icon .icon-bar-1,
+.ac-package-icon .icon-bar-2,
+.ac-package-icon .icon-bar-3 {
+    fill: none;
+    stroke-dasharray: 150, 10;
+    animation: ac-svg-flow 5s linear infinite;
+}
+
+.ac-package-icon .icon-draw {
+    stroke-dasharray: 100, 5;
+    animation-duration: 10s;
+}
+
+.ac-package-icon .icon-flow-delay-1 { animation-delay: 0s; }
+.ac-package-icon .icon-flow-delay-2 { animation-delay: 0.5s; }
+.ac-package-icon .icon-flow-delay-3 { animation-delay: 1s; }
+
+.ac-package-icon .icon-bar-1 { animation-duration: 2s; animation-direction: reverse; }
+.ac-package-icon .icon-bar-2 { animation-duration: 2.5s; }
+.ac-package-icon .icon-bar-3 { animation-duration: 3s; animation-direction: reverse; }
+
+@keyframes ac-svg-flow {
+    to {
+        stroke-dashoffset: -50;
+    }
+}
+
+/* === АДАПТАЦИЯ === */
+@media (max-width: 1200px) {
+    .ac-container {
+        grid-template-columns: 1fr;
+        gap: 35px;
+    }
+    .ac-team-photo {
+        max-height: 400px;
+    }
+}
+
+@media (max-width: 768px) {
+    .ac-section {
+        padding: 50px 20px;
+    }
+    .ac-title {
+        font-size: 2.2rem;
+    }
+    .ac-subtitle {
+        font-size: 1rem;
+    }
+    .ac-form-wrapper {
+        padding: 24px;
+    }
+    .ac-form-title {
+        font-size: 1.5rem;
+    }
+    .ac-form-row {
+        grid-template-columns: 1fr;
+    }
+    .ac-team-photo {
+        max-height: 300px;
+    }
+    .ac-package-header {
+        flex-wrap: wrap;
+    }
+    .ac-package-info {
+        width: 100%;
+        margin-bottom: 12px;
+    }
+    .ac-package-actions {
+        width: 100%;
+    }
+    .ac-clear-btn,
+    .ac-change-btn {
+        flex: 1;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .ac-title {
+        font-size: 1.8rem;
+    }
+    .ac-form-wrapper {
+        padding: 18px;
+    }
+    .ac-team-photo {
+        max-height: 250px;
+    }
+}

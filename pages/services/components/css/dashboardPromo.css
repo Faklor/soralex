@@ -1,0 +1,141 @@
+.dashboard-promo {
+    padding: 100px 120px;
+    background: linear-gradient(135deg, #1a0a0e 0%, #0a0a0c 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.dashboard-promo::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse at 20% 50%, rgba(255, 0, 54, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 50%, rgba(255, 0, 54, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.promo-content {
+    width: 100%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 60px; /* Раскомментировал и задал значение */
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+
+.logo-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+.animated-icon {
+    width: 41px;
+    height: 41px;
+    flex-shrink: 0;
+}
+
+.animated-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.logo-text {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+        margin-top: 0px;
+}
+
+.promo-title {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.2;
+    margin: 0 0 24px;
+}
+
+.promo-description {
+    font-size: 1.3rem;
+    color: #fff;
+    line-height: 1.6;
+    margin: 0 0 32px;
+    max-width: 480px;
+    font-family: 'RobotoLight', sans-serif;
+}
+
+.promo-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 36px;
+    background: #FF0036;
+    color: #ffffff;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 300;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    width: fit-content;
+}
+
+.promo-cta-btn:hover {
+    background: #ff1a44;
+    transform: translateY(-2px) translateX(4px);
+}
+
+.promo-cta-btn svg {
+    transition: transform 0.3s ease;
+}
+
+.promo-cta-btn:hover svg {
+    transform: translateX(4px);
+}
+
+.promo-video-wrapper {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+.video-container {
+    position: relative;
+    width: 100%;
+    background: #0a0a0c;
+}
+
+.promo-video {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 16px;
+    cursor: pointer;
+}
+
+@media (max-width: 1200px) {
+    .promo-content { grid-template-columns: 1fr; gap: 50px; }
+    .promo-text { text-align: center; }
+    .logo-wrapper { justify-content: center; }
+    .promo-description { margin-left: auto; margin-right: auto; }
+    .promo-cta-btn { margin-left: auto; margin-right: auto; }
+    .promo-title { font-size: 2.5rem; }
+}
+
+@media (max-width: 768px) {
+    .dashboard-promo { padding: 60px 20px; }
+    .promo-title { font-size: 2rem; }
+    .promo-description { font-size: 1rem; }
+    .logo-text { font-size: 1rem; }
+    .animated-icon { width: 36px; height: 36px; }
+}
+
+@media (max-width: 480px) {
+    .promo-title { font-size: 1.8rem; }
+    .promo-cta-btn { padding: 16px 28px; font-size: 0.95rem; }
+}

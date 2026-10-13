@@ -1,0 +1,259 @@
+/* === БАЗОВЫЕ СТИЛИ (ДЕСКТОП) === */
+nav {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+}
+
+a:not(.nav-cta-btn) {
+  text-decoration: none;
+  color: #ffffff;
+  font-weight: 600;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.95rem;
+  position: relative; /* ВАЖНО: для позиционирования бейджа */
+  padding: 8px 0;
+  transition: color 0.3s ease;
+  cursor: pointer;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+}
+
+a:not(.nav-cta-btn):hover {
+  color: #FF0036;
+}
+
+a:not(.nav-cta-btn)::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background-color: #FF0036;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+a:not(.nav-cta-btn):hover::after,
+a:not(.nav-cta-btn).active::after {
+  width: 100%;
+}
+
+a:not(.nav-cta-btn).active {
+  color: #FF0036;
+}
+
+a:not(.nav-cta-btn).active::after {
+  height: 3px;
+  border-radius: 2px;
+}
+
+/* === БЕЙДЖ-СЧЕТЧИК (как уведомление) === */
+.nav-count {
+  position: absolute;
+  top: -8px;
+  right: -20px;
+  background-color: #FF0036;
+  color: #ffffff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 10px;
+  min-width: 18px;
+  text-align: center;
+  line-height: 1.4;
+  
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  transform: scale(0);
+  opacity: 0;
+  pointer-events: none;
+  align-self: center;
+}
+
+/* Показываем бейдж когда есть значение */
+.nav-count.visible {
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* Анимация появления */
+.nav-count.visible {
+  animation: badgePop 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes badgePop {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* При наведении на ссылку бейдж тоже подсвечивается */
+a:not(.nav-cta-btn):hover .nav-count.visible,
+a:not(.nav-cta-btn).active .nav-count.visible {
+  
+}
+
+.nav-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 24px;
+    background-color: #FF0036;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 8px;
+    white-space: nowrap;
+    transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s ease, background-color 0.2s;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.nav-cta-btn:hover {
+    background-color: #cc002b;
+    transform: translateY(-2px);
+}
+
+.nav-cta-btn.is-hidden {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    pointer-events: none;
+}
+
+.nav-cta-btn svg {
+  flex-shrink: 0;
+  width: 21px;
+  height: 15px;
+}
+
+.nav-cta-btn svg path {
+  stroke: #ffffff;
+  stroke-width: 1.08428;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.hamburger {
+  display: none;
+}
+
+/* === burger === */
+
+@media (max-width: 1350px) {
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 32px;
+    height: 24px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1002;
+    position: relative;
+  }
+
+  .hamburger span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: #ffffff;
+    border-radius: 2px;
+    transition: all 0.3s ease-in-out;
+  }
+
+  :host(.menu-open) .hamburger span:nth-child(1) {
+    transform: translateY(11px) rotate(45deg);
+  }
+  :host(.menu-open) .hamburger span:nth-child(2) {
+    opacity: 0;
+  }
+  :host(.menu-open) .hamburger span:nth-child(3) {
+    transform: translateY(-11px) rotate(-45deg);
+  }
+
+  /* === КЛЮЧЕВОЕ ИСПРАВЛЕНИЕ ДЛЯ NAV === */
+  nav {
+    position: fixed;
+    inset: 0; /* top: 0, right: 0, bottom: 0, left: 0 */
+    width: 100vw;       /* ЖЕСТКО задаем ширину экрана */
+    max-width: 100vw;   /* ЗАПРЕЩАЕМ расширяться */
+    overflow: hidden;   /* ОБРЕЗАЕМ всё, что пытается вылезти (включая бейдж) */
+    overscroll-behavior: none; /* ОТКЛЮЧАЕМ "резиновый" скролл на iOS */
+    
+    background-color: #0D0D0F;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    transform: translateX(100%);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1001;
+  }
+
+  :host(.menu-open) nav {
+    transform: translateX(0);
+  }
+
+  nav a:not(.nav-cta-btn) {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  nav a:not(.nav-cta-btn)::after {
+    display: none;
+  }
+
+  nav a:not(.nav-cta-btn).active {
+    color: #FF0036;
+  }
+
+  /* === КЛЮЧЕВОЕ ИСПРАВЛЕНИЕ ДЛЯ БЕЙДЖА === */
+  .nav-count {
+    /* Вместо top: 50% и right: -36px, делаем безопасное позиционирование */
+    position: absolute;
+    top: 0; 
+    right: -10px; /* Уменьшили с -36px до -10px, чтобы не ломать ширину экрана */
+    transform: scale(0);
+    font-size: 0.85rem;
+    padding: 3px 8px;
+    min-width: 22px;
+  }
+
+  .nav-count.visible {
+    transform: scale(1);
+  }
+
+  @keyframes badgePop {
+    0% {
+      transform: scale(0);
+      opacity: 0;
+    }
+    50% {
+      transform: scale(1.2);
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  .nav-cta-btn {
+    margin-top: 20px;
+    padding: 16px 32px;
+    font-size: 1.2rem;
+  }
+}

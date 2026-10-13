@@ -1,0 +1,214 @@
+.steps-row {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 20px;
+    padding: 0 20px;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.step-card {
+    position: relative;
+    background: #0F0F11;
+    border-radius: 12px;
+    padding: 84px 20px 20px;
+    z-index: 1;
+    transition: transform 0.3s ease;
+}
+
+.step-card:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    right: -25px;
+    top: 18px;
+    width: 30px;
+    height: 50px;
+    background: #0F0F11;
+    z-index: 100;
+}
+
+.step-card:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: -20px;
+    top: 18px;
+    width: 20px;
+    height: 50px;
+    background: 
+        radial-gradient(circle at 50% 0%, #0a0a0c 12px, transparent 13px),
+        radial-gradient(circle at 50% 100%, #0a0a0c 12px, transparent 13px);
+    z-index: 101;
+}
+
+.step-icon-wrapper {
+    position: absolute;
+    top: 15px;
+    left: 20px;
+    width: 48px;
+    height: 48px;
+    background: #FF0036;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    /* box-shadow: 0 0 0 0 rgba(255, 0, 54, 0.4); */
+    /* animation: icon-pulse 3s ease-in-out infinite; */
+}
+
+.step-card:nth-child(1) .step-icon-wrapper { animation-delay: 0s; }
+.step-card:nth-child(2) .step-icon-wrapper { animation-delay: 0.2s; }
+.step-card:nth-child(3) .step-icon-wrapper { animation-delay: 0.4s; }
+.step-card:nth-child(4) .step-icon-wrapper { animation-delay: 0.6s; }
+.step-card:nth-child(5) .step-icon-wrapper { animation-delay: 0.8s; }
+.step-card:nth-child(6) .step-icon-wrapper { animation-delay: 1.0s; }
+
+@keyframes icon-pulse {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(255, 0, 54, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 0 10px rgba(255, 0, 54, 0);
+    }
+}
+
+.step-icon {
+    width: 24px;
+    height: 24px;
+    filter: brightness(0) invert(1);
+    transition: transform 0.3s ease;
+}
+
+.step-card:hover .step-icon {
+    transform: scale(1.1);
+}
+
+.step-number {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.3);
+    transition: color 0.3s ease;
+    visibility: hidden;
+}
+
+.step-card:hover .step-number {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.step-title {
+    font-size: 1.1rem;
+    font-weight: 300;
+    color: #FF0036;
+    margin: 0 0 12px;
+    padding-top: 8px;
+}
+
+.step-description {
+    font-size: 0.9rem;
+    color: #a0a0a0;
+    line-height: 1.2;
+    margin: 0;
+    font-family: 'RobotoLight';
+}
+
+/* === ПУНКТИРНАЯ СТРЕЛКА МЕЖДУ КАРТОЧКАМИ === */
+.step-arrow {
+    position: absolute;
+    top: 42px;
+    left: 88px;
+    width: 160px;
+    height: 2px;
+    z-index: 102; /* ВЫШЕ мостиков (100-101) */
+    pointer-events: none;
+    display: block !important; /* Принудительно показываем */
+}
+
+.step-arrow::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        90deg,
+        rgba(255, 0, 52, 1) 0px,
+        rgba(255, 0, 52, 1) 8px,
+        transparent 8px,
+        transparent 16px
+    );
+}
+
+.step-arrow::after {
+    content: '';
+    position: absolute;
+    right: -7px;
+    top: -4px;
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 7px solid rgba(255, 0, 52, 1);
+}
+
+/* Скрываем стрелку только у последней карточки в ряду (6-я) */
+.step-card:nth-child(6n) .step-arrow {
+    display: none !important;
+}
+
+@media (max-width: 1440px) {
+    .steps-row {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .step-card:not(:last-child)::before,
+    .step-card:not(:last-child)::after {
+        display: none;
+    }
+    
+    /* На планшетах скрываем у 3-й и 6-й */
+    .step-card:nth-child(3n) .step-arrow {
+        display: none !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .steps-row {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+    
+    .step-card {
+        padding: 82px 20px 20px;
+    }
+    
+    .step-card:not(:last-child)::before,
+    .step-card:not(:last-child)::after {
+        display: none;
+    }
+    
+    .step-arrow {
+        display: none !important;
+    }
+    
+    .step-icon-wrapper {
+        top: 20px;
+        left: 20px;
+        width: 40px;
+        height: 40px;
+    }
+    
+    .step-icon {
+        width: 20px;
+        height: 20px;
+    }
+
+    .step-number {
+        top: 28px;
+        right: 30px;
+        font-size: 1.25rem;
+    }
+}

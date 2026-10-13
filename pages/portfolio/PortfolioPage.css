@@ -1,0 +1,41 @@
+/* === ОБЩИЕ СТИЛИ СТРАНИЦЫ === */
+.portfolio-page {
+    padding: 10px 80px 20px 80px;
+    animation: fadeIn 0.8s ease-out;
+    
+    font-size: 'RobotoMedium';
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* === ЗАГОЛОВОК === */
+.portfolio-header {
+    text-align: start;
+    padding: 0 40px;
+    margin-bottom: 20px;
+}
+
+
+
+/* === АДАПТАЦИЯ === */
+@media (max-width: 768px) {
+    .portfolio-page {
+        padding: 10px 0 10px;
+    }
+    
+    .portfolio-header h1 {
+        font-size: 2rem;
+    }
+    
+    .portfolio-header p {
+        font-size: 1rem;
+    }
+    
+    .portfolio-header {
+        margin-bottom: 40px;
+         padding: 0 20px;
+    }
+}

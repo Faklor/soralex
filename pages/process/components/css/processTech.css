@@ -1,0 +1,223 @@
+/* === СЕКЦИЯ ТЕХНОЛОГИЙ === */
+.tech-section {
+    padding: 0px 30px 20px;
+    margin-bottom: 20px;
+}
+
+.tech-container {
+    display: grid;
+    grid-template-columns: 1.5fr 0.6fr;
+    gap: 40px;
+    background: #19191B;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 30px 28px;
+    position: relative;
+}
+
+/* === ЛЕВАЯ ЧАСТЬ === */
+.tech-left {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.tech-header {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.tech-header h3 {
+    font-size: 32px;
+    font-weight: 300;
+    color: #ffffff;
+    margin: 0;
+}
+
+.tech-subtitle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #a0a0a0;
+    font-size: 28px;
+    font-family: 'RobotoLight';
+}
+
+.tech-subtitle svg {
+    width: 40px;
+    height: 40px;
+}
+
+/* Логотипы технологий */
+.tech-logos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    align-items: center;
+}
+
+.tech-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+}
+
+
+
+.tech-logo {
+    width: 40px;
+    height: auto;
+    object-fit: contain;
+   
+    transition: all 0.3s ease;
+}
+
+
+
+.tech-name {
+    font-size: 24px;
+    color: #ffffff;
+    font-weight: 300;
+    font-family: 'RobotoLight';
+}
+
+/* === ВЕРТИКАЛЬНЫЙ РАЗДЕЛИТЕЛЬ === */
+.tech-divider {
+    position: absolute;
+    left: 69%;
+    top: 20px;
+    bottom: 20px;
+    width: 1px;
+     background: linear-gradient(180deg,rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0.1) 100%);
+}
+
+/* === ПРАВАЯ ЧАСТЬ === */
+.tech-right {
+    display: grid;
+    gap: 24px;
+    text-align: center;
+}
+
+.tech-right h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
+}
+
+.ai-title{
+    text-align: start;
+}
+
+/* AI-инструменты */
+.ai-tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    justify-content: start;
+}
+
+.ai-tool-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+
+
+.ai-tool-logo {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+    opacity: 0.8;
+    transition: all 0.3s ease;
+}
+
+
+
+.ai-tool-name {
+    font-size: 0.8rem;
+    color: #a0a0a0;
+    text-align: center;
+    font-family: 'RobotoLight';
+}
+
+/* === АДАПТАЦИЯ === */
+@media (max-width: 1024px) {
+    .tech-container {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        padding: 32px;
+    }
+    
+    .tech-divider {
+        display: none;
+    }
+    
+    .tech-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+    
+    .tech-logos {
+        gap: 24px;
+    }
+    
+    .ai-tools {
+        justify-content: flex-start;
+    }
+}
+
+@media (max-width: 768px) {
+    .tech-section {
+        padding: 40px 20px 0;
+    }
+    
+    .tech-container {
+        padding: 24px;
+    }
+    
+    .tech-header h3,
+    .tech-right h3 {
+        font-size: 1.25rem;
+    }
+    
+    .tech-logos {
+        gap: 20px;
+    }
+    
+    .tech-logo {
+        width: 28px;
+        height: 28px;
+    }
+    
+    .tech-name {
+        font-size: 0.85rem;
+    }
+    
+    .ai-tool-logo {
+        width: 36px;
+        height: 36px;
+    }
+    
+    .ai-tool-name {
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .tech-logos {
+        gap: 16px;
+    }
+    
+    .ai-tools {
+        gap: 16px;
+    }
+}

@@ -1,0 +1,180 @@
+/* === ОБЩАЯ КАРТОЧКА === */
+.contact-cta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+    background: rgba(63, 63, 63, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 30px 48px;
+    margin: 50px 20px 50px;
+    position: relative;
+    overflow: hidden;
+    
+}
+
+
+
+/* Декоративный красный паттерн справа */
+.contact-cta::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(255, 0, 54, 0.15) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* === ЛЕВАЯ ЧАСТЬ === */
+.contact-content {
+    position: relative;
+    z-index: 1;
+}
+
+.contact-content h2 {
+    font-size: 52px;
+    font-weight: 300;
+    color: #ffffff;
+    margin: 0 0 12px;
+    line-height: 1.2;
+}
+
+.contact-content p {
+    font-size: 28px;
+    color: #a0a0a0;
+    margin: 0 0 24px;
+    line-height: 1.5;
+    font-family: 'RobotoLight';
+}
+
+.contact-btn {
+    display: inline-block;
+    padding: 14px 80px;
+    background: #FF0036;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 300;
+    font-size: 1.5rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    
+}
+
+.contact-btn:hover {
+    background: #cc002b;
+    transform: translateY(-2px);
+    /* box-shadow: 0 8px 20px rgba(255, 0, 54, 0.3); */
+}
+
+/* === ПРАВАЯ ЧАСТЬ === */
+.contact-features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px 40px;
+    position: relative;
+    z-index: 1;
+}
+
+.contact-feature {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+}
+
+
+
+.feature-icon {
+    width: auto;
+    height: 48px;
+    margin-bottom: 12px;
+    
+}
+
+.contact-feature:hover .feature-icon {
+   
+}
+
+.contact-feature p {
+    font-size: 24px;
+    color: #ffffff;
+    line-height: 1.1;
+    margin: 0;
+}
+
+/* Вертикальные разделители между иконками */
+.feature-divider {
+    position: absolute;
+    right: -12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 100%;
+    padding: 40px 0;
+    background: #ffffff;
+    background: linear-gradient(180deg,rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0.1) 100%);
+}
+
+/* === АДАПТАЦИЯ === */
+@media (max-width: 1024px) {
+    .contact-cta {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        padding: 32px;
+    }
+    
+    .contact-content {
+        text-align: center;
+    }
+    
+    .contact-content h2 {
+        font-size: 1.75rem;
+    }
+    
+    .contact-features {
+        gap: 16px;
+    }
+    
+    .feature-divider {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .contact-cta {
+        margin: 40px 20px 0;
+        padding: 24px;
+    }
+    
+    .contact-content h2 {
+        font-size: 1.5rem;
+    }
+    
+    .contact-content p {
+        font-size: 0.95rem;
+    }
+    
+    .contact-features {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+    
+    .contact-feature {
+        flex-direction: row;
+        text-align: left;
+        gap: 16px;
+    }
+    
+    .feature-icon {
+        margin-bottom: 0;
+        width: 40px;
+        height: 40px;
+    }
+}

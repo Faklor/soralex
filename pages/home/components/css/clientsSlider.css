@@ -1,0 +1,102 @@
+/* === СЕКЦИЯ TRUSTED BY === */
+.trusted-section {
+    text-align: left;
+    padding: 120px 20px 0 20px;
+}
+
+.trusted-section h2 {
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: #bbbbbb;
+    margin-bottom: 40px;
+    margin-left: 0;
+}
+
+/* === КОНТЕЙНЕР === */
+.marquee-container {
+    position: relative;
+    width: 100%;
+}
+
+/* === ТРЕК С ЛОГОТИПАМИ === */
+.marquee-track {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+}
+
+/* === ЛОГОТИП === */
+.logo-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    flex-shrink: 0; 
+    transition: transform 0.3s ease; 
+}
+
+.logo-item img {
+    max-height: 100%;
+    max-width: 150px; 
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    display: block;
+}
+
+
+
+/* === АДАПТАЦИЯ === */
+
+@media (max-width: 1400px) {
+    .trusted-section {
+        text-align: left;
+        padding: 20px 20px 0 20px;
+    }
+
+}
+
+
+
+@media (max-width: 1024px) {
+    .marquee-track {
+        gap: 32px;
+    }
+    .logo-item {
+        height: 50px;
+    }
+    .logo-item img {
+        max-width: 120px;
+    }
+}
+
+@media (max-width: 768px) {
+    .trusted-section h2 {
+        font-size: 1.25rem;
+        margin-bottom: 32px;
+        text-align: center;
+    }
+    .marquee-track {
+        gap: 24px;
+    }
+    .logo-item {
+        height: 40px;
+    }
+    .logo-item img {
+        max-width: 100px;
+    }
+}
+
+@media (max-width: 480px) {
+    .marquee-track {
+        gap: 16px;
+    }
+    .logo-item {
+        height: 35px;
+    }
+    .logo-item img {
+        max-width: 80px;
+    }
+}
