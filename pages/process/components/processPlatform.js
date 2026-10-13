@@ -12,7 +12,7 @@ class ProcessPlatforms extends HTMLElement {
             { name: 'WeChat', logo: 'assets/img/process/platforms/wechat.png' },
             { name: 'Liftoff', logo: 'assets/img/process/platforms/liftoff.png' },
             { name: 'Mopub', logo: 'assets/img/process/platforms/mopub.png' },
-            { name: 'IronSource', logo: 'assets/img/process/platforms/ironsource.png' },
+            // { name: 'IronSource', logo: 'assets/img/process/platforms/ironsource.png' },
             { name: 'Chartboost', logo: 'assets/img/process/platforms/chartboost.png' },
             { name: 'Unity Ads', logo: 'assets/img/process/platforms/unity.png' },
             { name: 'Tapjoy', logo: 'assets/img/process/platforms/tapjoy.png' },
