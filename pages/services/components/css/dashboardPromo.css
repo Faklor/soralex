@@ -1,6 +1,6 @@
 .dashboard-promo {
     padding: 100px 120px;
-    background: linear-gradient(135deg, #1a0a0e 0%, #0a0a0c 100%);
+    /* background: linear-gradient(135deg, #1a0a0e 0%, #0a0a0c 100%); */
     position: relative;
     overflow: hidden;
 }
@@ -9,8 +9,8 @@
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: radial-gradient(ellipse at 20% 50%, rgba(255, 0, 54, 0.15) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 50%, rgba(255, 0, 54, 0.1) 0%, transparent 50%);
+    background: radial-gradient(ellipse at 20% 50%, rgba(255, 0, 54, 0.15) 0%, transparent 55%),
+                radial-gradient(ellipse at 80% 50%, rgba(255, 0, 54, 0.1) 0%, transparent 60%);
     pointer-events: none;
 }
 
@@ -138,4 +138,14 @@
 @media (max-width: 480px) {
     .promo-title { font-size: 1.8rem; }
     .promo-cta-btn { padding: 16px 28px; font-size: 0.95rem; }
+}
+
+
+@media (min-width: 2560px) {
+ 
+
+
+    .dashboard-promo{
+        padding: 100px 420px ;
+    }
 }

@@ -1,10 +1,14 @@
 /* === ОБЩИЕ СТИЛИ СТРАНИЦЫ === */
 .process-page {
+    position: relative; 
     padding: 20px 80px 50px 80px;
     animation: fadeIn 0.8s ease-out;
     font-family: "RobotoMedium";
     background: #0a0a0c;
+    
 }
+
+
 
 
 
@@ -95,5 +99,14 @@
     
     .process-steps {
         grid-template-columns: 1fr;
+    }
+}
+
+
+@media (min-width: 2560px) {
+ 
+    .process-page {
+        position: relative; 
+        padding: 20px 380px 50px 380px;
     }
 }

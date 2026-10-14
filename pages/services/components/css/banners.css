@@ -2,7 +2,7 @@
 .banners-hero {
     padding: 50px 120px 200px;
     padding: 50px 120px 0px;
-    background: #0a0a0c;
+    /* background: #0a0a0c; */
     min-height: 600px;
     display: flex;
     align-items: center;
@@ -25,16 +25,16 @@
 }
 
 /* Затемняющий слой */
-.banners-hero::before {
+/* .banners-hero::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(10, 10, 12, 0.85); /* Черный полупрозрачный слой */
+    background: rgba(10, 10, 12, 0.85); 
     z-index: 0;
-}
+} */
 
 /* Фоновая картинка */
 .banners-hero::after {
@@ -45,10 +45,10 @@
     right: 0;
     bottom: 0;
     background: url('../../../../assets/img/looper.png') center right/cover no-repeat;
-    background-position: 100% center; /* Сдвиг вправо (0% - лево, 50% - центр, 100% - право) */
-    opacity: 0.5; /* Дополнительное затемнение */
+    background-position: 80% 50%; /* Сдвиг вправо (0% - лево, 50% - центр, 100% - право) */
+    opacity: 0.3; /* Дополнительное затемнение */
     z-index: 0;
-    background-size: 60%;
+    background-size: 50%;
 }
 
 .banners-content {
@@ -297,5 +297,21 @@
     
     .phone-mockup {
         width: 160px;
+    }
+}
+
+@media (min-width: 2560px) {
+ 
+    .banners-hero {
+       
+        padding: 50px 420px 0px;
+       
+       
+    }
+
+    .banners-hero::after {
+        
+        background-position: 80% 0%; 
+       
     }
 }

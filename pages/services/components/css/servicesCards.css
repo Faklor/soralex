@@ -1,6 +1,6 @@
 .services-cards-section {
     padding: 0px 120px 100px;
-    background: #0a0a0c;
+    /* background: #0a0a0c; */
 }
 
 .services-header {
@@ -130,4 +130,13 @@
     .services-title { font-size: 1.8rem; }
     .card-title { font-size: 1.1rem; }
     .card-description { font-size: 0.9rem; }
+}
+
+@media (min-width: 2560px) {
+ 
+
+
+    .services-cards-section {
+        padding: 0px 420px 100px;
+    }
 }

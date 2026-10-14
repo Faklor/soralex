@@ -53,7 +53,7 @@
 /* Логотипы технологий */
 .tech-logos {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     gap: 32px;
     align-items: center;
 }
@@ -115,7 +115,7 @@
 /* AI-инструменты */
 .ai-tools {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     gap: 24px;
     justify-content: start;
 }
@@ -149,6 +149,48 @@
 }
 
 /* === АДАПТАЦИЯ === */
+@media (max-width: 1720px) {
+   
+    
+    .tech-logos {
+        gap: 20px;
+    }
+    
+    .ai-tools {
+        justify-content: flex-start;
+        gap:20px;
+    }
+}
+
+@media (max-width: 1620px) {
+   
+    
+    .tech-logos {
+        gap: 10px;
+    }
+    
+    .ai-tools {
+        justify-content: flex-start;
+        gap:10px;
+    }
+}
+
+@media (max-width: 1520px) {
+   
+    
+    .tech-logos {
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+    
+    .ai-tools {
+        justify-content: flex-start;
+        gap:10px;
+        flex-wrap: wrap;
+
+    }
+}
+
 @media (max-width: 1024px) {
     .tech-container {
         grid-template-columns: 1fr;

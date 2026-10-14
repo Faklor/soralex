@@ -155,11 +155,10 @@ main.preloader-active,
 
 @media (min-width: 2560px) {
   .container {
-    max-width:1920px; 
-    padding: 0 0px;   
+    max-width:2560px; 
+    /* padding: 0 300px;    */
   }
 }
-
 
 
 

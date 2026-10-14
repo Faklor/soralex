@@ -1,10 +1,10 @@
 /* === ОБЩИЕ СТИЛИ СТРАНИЦЫ === */
 .home-page {
-    position: relative; /* Важно: делает эту секцию "якорем" для абсолютного фона */
+    position: relative; 
     padding: 40px 80px 50px 80px;
     animation: fadeIn 0.8s ease-out;
     font-family: 'RobotoMedium';
-    overflow-x: hidden; /* Гарантированно убираем горизонтальный скролл */
+    overflow-x: hidden; 
     
     /* background-color: #000000; */
 
@@ -59,43 +59,43 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;      /* Фиксированная ширина "окна" */
-    height: 800px;     /* Фиксированная высота "окна" */
-    overflow: hidden;  /* Обрезаем всё, что выходит за границы */
+    width: 100%;     
+    height: 800px;     
+    overflow: hidden;  
     z-index: 0;
 }
 
 #network-canvas {
-    /* Задай нужный размер отображения здесь */
-    width: 1100px;  /* например, чуть больше телефона */
-    height: auto;  /* сохранит пропорции */
+   
+    width: 1100px; 
+    height: auto;  
     
-    /* Или если хочешь на весь экран: */
+    
     /* width: 100%; */
     /* height: 100%; */
     /* object-fit: contain; */
 }
 
 /* === КОНТЕНТ ВЫШЕ ФОНА === */
-/* Отключаем события у контейнеров-сеток, чтобы пустое место пропускало клики к телефону */
+
 .hero-section,
 .trusted-section,
 .stats-section{
     position: relative;
     z-index: 1; 
-    pointer-events: none; /* КЛИКИ ПРОХОДЯТ СКВОЗЬ ПУСТОЕ МЕСТО КОНТЕЙНЕРА */
+    pointer-events: none;
 }
 
-/* Включаем события ТОЛЬКО для конкретных интерактивных компонентов */
+
 hero-block,
 features-list,
 trusted-by,
 stats-grid,
 top-playables-slider {
-    pointer-events: auto; /* ВОЗВРАЩАЕМ КЛИКИ КНОПКАМ И КОНТЕНТУ */
+    pointer-events: auto; 
 }
 
-/* Убедимся, что сами кнопки внутри hero-block тоже активны (на всякий случай) */
+
 .hero-block .buttons,
 .hero-block .btn {
     pointer-events: auto;
@@ -154,8 +154,8 @@ top-playables-slider {
         top: 43px;
         left:150px;
        
-        height: 800px;     /* Фиксированная высота "окна" */
-        overflow: hidden;  /* Обрезаем всё, что выходит за границы */
+        height: 800px;     
+        overflow: hidden;  
         z-index: 0;
        
     }
@@ -178,8 +178,8 @@ top-playables-slider {
         top: 120px;
         left:250px;
        
-        height: 800px;     /* Фиксированная высота "окна" */
-        overflow: hidden;  /* Обрезаем всё, что выходит за границы */
+        height: 800px;     
+        overflow: hidden;  
         z-index: 0;
        
     }
@@ -216,12 +216,21 @@ top-playables-slider {
         top: 420px;
         left:5px;
        
-        height: 1400px;     /* Фиксированная высота "окна" */
-        overflow: hidden;  /* Обрезаем всё, что выходит за границы */
+        height: 1400px;    
+        overflow: hidden;  
         z-index: 0;
         
        
     }
 
     
+}
+
+
+@media (min-width: 2560px) {
+ 
+    .home-page {
+        position: relative; 
+        padding: 40px 380px 50px 380px;
+    }
 }

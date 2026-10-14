@@ -159,6 +159,31 @@
     display: none !important;
 }
 
+@media (max-width: 1820px) {
+   
+    .step-arrow{
+        
+        
+        left: 88px;
+        width: 120px;
+        
+    }
+    
+}
+
+@media (max-width: 1620px) {
+   
+    .step-arrow{
+        
+        
+        left: 88px;
+        width: 100px;
+        
+    }
+    
+}
+
+
 @media (max-width: 1440px) {
     .steps-row {
         grid-template-columns: repeat(3, 1fr);
@@ -169,8 +194,7 @@
         display: none;
     }
     
-    /* На планшетах скрываем у 3-й и 6-й */
-    .step-card:nth-child(3n) .step-arrow {
+    .step-arrow{
         display: none !important;
     }
 }

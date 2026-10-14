@@ -325,3 +325,10 @@
         padding: 24px 20px;
     }
 }
+
+@media (min-width: 2560px) {
+  .pc-wrapper {
+   
+    padding: 60px 300px;
+  }
+}

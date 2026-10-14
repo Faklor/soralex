@@ -27,3 +27,11 @@
        
     } 
 }
+
+@media (min-width: 2560px) {
+ 
+    .dashboard-page {
+        position: relative; 
+        padding: 100px 380px 50px 380px;
+    }
+}

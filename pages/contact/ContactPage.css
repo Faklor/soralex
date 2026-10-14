@@ -5,3 +5,12 @@
     background: #0D0D0F;
     font-family: 'RobotoMedium';
 }
+
+
+@media (min-width: 2560px) {
+ 
+    .contact-page {
+        position: relative; 
+        padding: 100px 380px 50px 380px;
+    }
+}
