@@ -17,7 +17,7 @@ class AppFooter extends HTMLElement {
                         
                         <div class="footer-contact-info">
                             <h4>Get in touch</h4>
-                            <a href="mailto:sales@mraid.io" class="footer-email">sales@mraid.io</a>
+                            <a href="mailto:contact@soralexgames.com" class="footer-email">contact@soralexgames.com</a>
                         </div>
                     </div>
 

@@ -12,6 +12,7 @@ class NetworkBackground extends HTMLElement {
         this.time = 0;
         this.animationId = null;
         
+        
         // 🔥 НОВОЕ: Флаги для отложенной загрузки
         this._isInitialized = false;
         this._observer = null;
@@ -660,7 +661,7 @@ class NetworkBackground extends HTMLElement {
 
         this.playableIframe = document.createElement('iframe');
         this.playableIframe.src = 'about:blank';
-        this.playableIframe.setAttribute('allow', 'webgl; autoplay; fullscreen; microphone; camera; xr-spatial-tracking;title="customPhone"');
+        this.playableIframe.setAttribute('allow', 'webgl; fullscreen; microphone; camera; xr-spatial-tracking;title="customPhone"');
         this.playableIframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-popups allow-forms');
         
         this.playableIframe.style.background = 'transparent';
