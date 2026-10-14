@@ -1,12 +1,24 @@
-.steps-row {
+/* === ОСНОВНАЯ СЕТКА (объединяет .steps-row, .previews-row, .ai-features-row) === */
+.process-grid {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     gap: 20px;
     padding: 0 20px;
     position: relative;
     margin-bottom: 20px;
+    margin-top: 20px;
+    overflow: visible;
 }
 
+/* Обертка для вертикального выстраивания: Step -> Preview -> AI */
+.process-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    transition: transform 0.3s ease;
+}
+
+/* === 1. СТИЛИ КАРТОЧКИ ШАГА (точь-в-точь) === */
 .step-card {
     position: relative;
     background: #0F0F11;
@@ -14,9 +26,10 @@
     padding: 84px 20px 20px;
     z-index: 1;
     transition: transform 0.3s ease;
+    min-height: 220px;
 }
 
-.step-card:not(:last-child)::before {
+.process-column:not(:last-child) .step-card::before {
     content: '';
     position: absolute;
     right: -25px;
@@ -27,7 +40,7 @@
     z-index: 100;
 }
 
-.step-card:not(:last-child)::after {
+.process-column:not(:last-child) .step-card::after {
     content: '';
     position: absolute;
     right: -20px;
@@ -52,16 +65,14 @@
     align-items: center;
     justify-content: center;
     z-index: 2;
-    /* box-shadow: 0 0 0 0 rgba(255, 0, 54, 0.4); */
-    /* animation: icon-pulse 3s ease-in-out infinite; */
 }
 
-.step-card:nth-child(1) .step-icon-wrapper { animation-delay: 0s; }
-.step-card:nth-child(2) .step-icon-wrapper { animation-delay: 0.2s; }
-.step-card:nth-child(3) .step-icon-wrapper { animation-delay: 0.4s; }
-.step-card:nth-child(4) .step-icon-wrapper { animation-delay: 0.6s; }
-.step-card:nth-child(5) .step-icon-wrapper { animation-delay: 0.8s; }
-.step-card:nth-child(6) .step-icon-wrapper { animation-delay: 1.0s; }
+.process-column:nth-child(1) .step-icon-wrapper { animation-delay: 0s; }
+.process-column:nth-child(2) .step-icon-wrapper { animation-delay: 0.2s; }
+.process-column:nth-child(3) .step-icon-wrapper { animation-delay: 0.4s; }
+.process-column:nth-child(4) .step-icon-wrapper { animation-delay: 0.6s; }
+.process-column:nth-child(5) .step-icon-wrapper { animation-delay: 0.8s; }
+.process-column:nth-child(6) .step-icon-wrapper { animation-delay: 1.0s; }
 
 @keyframes icon-pulse {
     0%, 100% {
@@ -121,9 +132,9 @@
     left: 88px;
     width: 160px;
     height: 2px;
-    z-index: 102; /* ВЫШЕ мостиков (100-101) */
+    z-index: 102;
     pointer-events: none;
-    display: block !important; /* Принудительно показываем */
+    display: block !important;
 }
 
 .step-arrow::before {
@@ -154,85 +165,237 @@
     border-left: 7px solid rgba(255, 0, 52, 1);
 }
 
-/* Скрываем стрелку только у последней карточки в ряду (6-я) */
-.step-card:nth-child(6n) .step-arrow {
+.process-column:nth-child(6n) .step-arrow {
     display: none !important;
 }
 
+/* === 2. СТИЛИ КАРТИНКИ ПРЕВЬЮ (точь-в-точь) === */
+.preview-card {
+    aspect-ratio: 16 / 12;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #1a1a1a;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: all 0.3s ease;
+}
+
+.preview-card img {
+    width: 100%;
+    height: 100%;
+}
+
+/* === 3. СТИЛИ AI ТЕКСТА (точь-в-точь) === */
+.ai-feature {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.ai-diamond {
+    color: #FFFFFF;
+    font-size: 1rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.ai-feature p {
+    font-size: 0.85rem;
+    color: #888;
+    line-height: 1.4;
+    margin: 0;
+}
+
+/* =========================================
+   АДАПТАЦИЯ (ТВОИ МЕДИА-ЗАПРОСЫ 1-в-1)
+   ========================================= */
+
 @media (max-width: 1820px) {
-   
-    .step-arrow{
-        
-        
+    .step-arrow {
         left: 88px;
         width: 120px;
-        
     }
-    
 }
 
 @media (max-width: 1620px) {
-   
-    .step-arrow{
-        
-        
+    .step-arrow {
         left: 88px;
         width: 100px;
-        
     }
-    
 }
 
-
 @media (max-width: 1440px) {
-    .steps-row {
+    .process-grid {
         grid-template-columns: repeat(3, 1fr);
     }
     
-    .step-card:not(:last-child)::before,
-    .step-card:not(:last-child)::after {
-        display: none;
-    }
-    
-    .step-arrow{
-        display: none !important;
-    }
-}
-
-@media (max-width: 768px) {
-    .steps-row {
-        grid-template-columns: 1fr;
-        gap: 24px;
-    }
-    
-    .step-card {
-        padding: 82px 20px 20px;
-    }
-    
-    .step-card:not(:last-child)::before,
-    .step-card:not(:last-child)::after {
+    .process-column:not(:last-child) .step-card::before,
+    .process-column:not(:last-child) .step-card::after {
         display: none;
     }
     
     .step-arrow {
-        display: none !important;
+        
+    }
+}
+
+/* =========================================
+   АДАПТАЦИЯ ДЛЯ МОБИЛЬНЫХ (СЛАЙДЕР)
+   ========================================= */
+@media (max-width: 768px) {
+    .process-grid {
+        display: flex;
+        overflow: hidden;
+        gap: 0;
+        padding: 0;
+        margin-bottom: 0;
     }
     
+    .process-column {
+        flex: 0 0 100%;
+        min-width: 100%;
+        gap: 20px;
+        padding: 0 20px;
+        transition: transform 0.3s ease;
+    }
+
+    .process-column:not(:last-child) .step-card::before,
+    .process-column:not(:last-child) .step-card::after {
+        display: none;
+    }
+    
+    /* Стрелка остается видимой */
+    .step-arrow {
+        display: block !important;
+    }
+
+    /* === УВЕЛИЧЕНИЕ ШРИФТОВ ДЛЯ МОБИЛЬНОЙ ВЕРСИИ === */
+    .step-card {
+        padding: 70px 20px 24px;
+        min-height: 200px;
+    }
+
     .step-icon-wrapper {
-        top: 20px;
+        top: 18px;
         left: 20px;
-        width: 40px;
-        height: 40px;
+        width: 44px;
+        height: 44px;
     }
-    
+
     .step-icon {
-        width: 20px;
-        height: 20px;
+        width: 22px;
+        height: 22px;
     }
 
     .step-number {
-        top: 28px;
-        right: 30px;
+        top: 22px;
+        right: 20px;
+        font-size: 1rem;
+        visibility: visible;
+        color: rgba(255, 255, 255, 0.4);
+        display: none;
+    }
+
+    .step-title {
         font-size: 1.25rem;
+        margin-bottom: 14px;
+        padding-top: 10px;
+    }
+
+    .step-description {
+        font-size: 1rem;
+        line-height: 1.4;
+    }
+
+    /* === УВЕЛИЧЕНИЕ AI ТЕКСТА === */
+    .ai-feature {
+        gap: 10px;
+        align-items: flex-start;
+    }
+
+    .ai-diamond {
+        font-size: 1.1rem;
+        margin-top: 3px;
+    }
+
+    .ai-feature p {
+        font-size: 1.2rem;
+        line-height: 1.5;
+        color: #999;
+    }
+
+    /* === КОНТРОЛЫ СЛАЙДЕРА === */
+    .slider-controls {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 60px;
+        margin-top: 30px;
+        padding: 0 20px;
+    }
+
+    .slider-btn {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        width: 48px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        color: #fff;
+        flex-shrink: 0;
+    }
+
+    .slider-btn:hover {
+        background: #FF0036;
+        border-color: #FF0036;
+        transform: scale(1.1);
+    }
+
+    .slider-btn:active {
+        transform: scale(0.95);
+    }
+
+    .slider-btn svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    .proccers-slider-dots {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        margin:0;
+        margin-top: 0px;
+    }
+
+    .slider-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        padding: 0;
+    }
+
+    .slider-dot:hover {
+        background: rgba(255, 255, 255, 0.5);
+    }
+
+    .slider-dot.active {
+        background: #FF0036;
+        width: 30px;
+        border-radius: 5px;
+    }
+}
+
+/* Скрываем контролы на десктопе */
+@media (min-width: 769px) {
+    .slider-controls {
+        display: none;
     }
 }

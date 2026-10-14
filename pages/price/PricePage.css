@@ -1,7 +1,7 @@
 /* === ОБЩИЙ КОНТЕЙНЕР ЦЕН === */
 .pc-wrapper {
     background: #0a0a0c;
-    padding: 60px 40px; /* Уменьшено для лучшего влезания */
+    padding: 60px 40px;
     margin-bottom: 60px;
     font-family: 'RobotoMedium', sans-serif;
 }
@@ -13,7 +13,7 @@
 }
 
 .pc-title {
-    font-size: 2rem; /* Уменьшено с 2.5rem */
+    font-size: 2rem;
     font-weight: 700;
     color: #ffffff;
     margin: 0 0 12px 0;
@@ -21,7 +21,7 @@
 }
 
 .pc-description {
-    font-size: 1rem; /* Уменьшено с 1.1rem */
+    font-size: 1rem;
     color: #888;
     line-height: 1.5;
     margin: 0 auto;
@@ -32,7 +32,7 @@
 .pc-cards-row {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 16px; /* Чуть плотнее */
+    gap: 16px;
     max-width: 1400px;
     margin: 0 auto;
 }
@@ -43,7 +43,7 @@
     background: #141417;
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 12px;
-    padding: 24px 20px; /* Уменьшены внутренние отступы */
+    padding: 24px 20px;
     display: flex;
     flex-direction: column;
     transition: all 0.3s ease, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -59,7 +59,6 @@
     100% { transform: scale(1); }
 }
 
-/* Когда любая карта выбрана, убираем popular стили */
 .pc-cards-row:has(.pc-selected-card) .pc-card.pc-popular {
     border: 1px solid rgba(255, 255, 255, 0.08) !important;
     background: #141417 !important;
@@ -72,7 +71,7 @@
 
 /* === ИКОНКА КАРТОЧКИ === */
 .pc-card-icon {
-    width: 45px; /* Чуть компактнее */
+    width: 45px;
     height: 45px;
     margin: 0 0 12px;
     display: flex;
@@ -103,7 +102,7 @@
 
 /* === ЗАГОЛОВОК И ОПИСАНИЕ КАРТОЧКИ === */
 .pc-card-title {
-    font-size: 1.05rem; /* Уменьшено */
+    font-size: 1.05rem;
     font-weight: 700;
     color: #ffffff;
     margin: 0 0 8px;
@@ -112,7 +111,7 @@
 }
 
 .pc-card-description {
-    font-size: 0.9rem; /* Уменьшено */
+    font-size: 0.9rem;
     color: #cccccc;
     line-height: 1.4;
     margin: 0 0 16px;
@@ -136,14 +135,14 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 10px; /* Плотнее */
+    gap: 10px;
 }
 
 .pc-card-features li {
     display: flex;
     align-items: flex-start;
     gap: 8px;
-    font-size: 0.8rem; /* Уменьшено для компактности */
+    font-size: 0.8rem;
     color: #b0b0b0;
     line-height: 1.4;
 }
@@ -191,7 +190,7 @@
 /* === КНОПКИ === */
 .pc-choose-button {
     width: 100%;
-    padding: 12px 20px; /* Чуть компактнее */
+    padding: 12px 20px;
     background: transparent;
     border: 2px solid #FF0034;
     border-radius: 8px;
@@ -291,7 +290,6 @@
 }
 
 /* === АДАПТАЦИЯ === */
-/* Переключаемся на 2 колонки раньше, чтобы карточки не сплющивались */
 @media (max-width: 1200px) {
     .pc-wrapper {
         padding: 50px 30px;
@@ -299,9 +297,19 @@
     .pc-cards-row {
         grid-template-columns: repeat(2, 1fr);
         gap: 20px;
+        padding: 20px 0;
     }
 }
 
+@media (min-width: 2560px) {
+    .pc-wrapper {
+        padding: 60px 300px;
+    }
+}
+
+/* =========================================
+   АДАПТАЦИЯ ДЛЯ МОБИЛЬНЫХ (СЛАЙДЕР)
+   ========================================= */
 @media (max-width: 768px) {
     .pc-wrapper {
         padding: 40px 20px;
@@ -316,19 +324,106 @@
         margin-bottom: 32px;
     }
 
+    /* Превращаем сетку в горизонтальный слайдер */
     .pc-cards-row {
-        grid-template-columns: 1fr;
-        gap: 20px;
+        display: flex;
+        overflow: hidden;
+        gap: 0;
     }
     
     .pc-card {
-        padding: 24px 20px;
+        flex: 0 0 100%;
+        min-width: 100%;
+        padding: 28px 24px; /* Чуть больше воздуха для мобилки */
+        transition: transform 0.3s ease;
+    }
+
+    /* Улучшенная читаемость шрифтов на мобильном */
+    .pc-card-title {
+        font-size: 1.2rem;
+    }
+    .pc-card-description {
+        font-size: 0.95rem;
+    }
+    .pc-card-features li {
+        font-size: 0.9rem;
+        line-height: 1.45;
+    }
+    .pc-current-price {
+        font-size: 1.25rem;
+    }
+
+    /* === УНИКАЛЬНЫЕ КОНТРОЛЫ СЛАЙДЕРА (префикс pc-) === */
+    .pc-slider-controls {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 32px;
+        padding: 0 20px;
+    }
+
+    .pc-slider-btn {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        width: 48px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        color: #fff;
+        flex-shrink: 0;
+    }
+
+    .pc-slider-btn:hover {
+        background: #FF0034;
+        border-color: #FF0034;
+        transform: scale(1.1);
+    }
+
+    .pc-slider-btn:active {
+        transform: scale(0.95);
+    }
+
+    .pc-slider-btn svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    .pc-slider-dots {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+
+    .pc-slider-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        padding: 0;
+    }
+
+    .pc-slider-dot:hover {
+        background: rgba(255, 255, 255, 0.5);
+    }
+
+    .pc-slider-dot.active {
+        background: #FF0034;
+        width: 30px;
+        border-radius: 5px;
     }
 }
 
-@media (min-width: 2560px) {
-  .pc-wrapper {
-   
-    padding: 60px 300px;
-  }
+/* Скрываем контролы слайдера на десктопе */
+@media (min-width: 769px) {
+    .pc-slider-controls {
+        display: none;
+    }
 }

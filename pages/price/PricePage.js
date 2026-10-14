@@ -3,6 +3,11 @@ class PriceCards extends HTMLElement {
         super();
         this.plans = [];
         this.handlePlanCleared = this.handlePlanCleared.bind(this);
+        
+        // Переменные для слайдера
+        this.currentSlide = 0;
+        this.touchStartX = 0;
+        this.touchEndX = 0;
     }
 
     connectedCallback() {
@@ -75,6 +80,7 @@ class PriceCards extends HTMLElement {
 
         window.addEventListener('planCleared', this.handlePlanCleared);
         this.render();
+        this.initSlider();
 
         if (window.location.hash === '#pricing') {
             setTimeout(() => {
@@ -138,6 +144,21 @@ class PriceCards extends HTMLElement {
                         `;
                     }).join('')}
                 </div>
+
+                <!-- Уникальные контролы слайдера с префиксом pc- -->
+                <div class="pc-slider-controls">
+                    <button class="pc-slider-btn pc-slider-prev" aria-label="Previous plan">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <div class="pc-slider-dots"></div>
+                    <button class="pc-slider-btn pc-slider-next" aria-label="Next plan">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
             </section>
         `;
 
@@ -148,6 +169,83 @@ class PriceCards extends HTMLElement {
                 this.selectPlan(planIndex);
             });
         });
+    }
+
+    initSlider() {
+        const cards = this.querySelectorAll('.pc-card');
+        const dotsContainer = this.querySelector('.pc-slider-dots');
+        const prevBtn = this.querySelector('.pc-slider-prev');
+        const nextBtn = this.querySelector('.pc-slider-next');
+
+        if (!dotsContainer) return;
+
+        // Создаем точки
+        cards.forEach((_, index) => {
+            const dot = document.createElement('button');
+            dot.classList.add('pc-slider-dot');
+            dot.setAttribute('aria-label', `Go to plan ${index + 1}`);
+            if (index === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => this.goToSlide(index));
+            dotsContainer.appendChild(dot);
+        });
+
+        // Обработчики кнопок
+        prevBtn.addEventListener('click', () => this.prevSlide());
+        nextBtn.addEventListener('click', () => this.nextSlide());
+
+        // Свайп для мобильных
+        this.addEventListener('touchstart', (e) => {
+            this.touchStartX = e.changedTouches[0].screenX;
+        });
+
+        this.addEventListener('touchend', (e) => {
+            this.touchEndX = e.changedTouches[0].screenX;
+            this.handleSwipe();
+        });
+    }
+
+    handleSwipe() {
+        const swipeThreshold = 50;
+        const diff = this.touchStartX - this.touchEndX;
+
+        if (Math.abs(diff) > swipeThreshold) {
+            if (diff > 0) {
+                this.nextSlide();
+            } else {
+                this.prevSlide();
+            }
+        }
+    }
+
+    goToSlide(index) {
+        const cards = this.querySelectorAll('.pc-card');
+        const dots = this.querySelectorAll('.pc-slider-dot');
+        
+        this.currentSlide = index;
+        
+        cards.forEach((card, i) => {
+            if (window.innerWidth <= 768) {
+                card.style.transform = `translateX(-${index * 100}%)`;
+            } else {
+                card.style.transform = '';
+            }
+        });
+
+        dots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === index);
+        });
+    }
+
+    nextSlide() {
+        const cards = this.querySelectorAll('.pc-card');
+        const maxSlide = cards.length - 1;
+        this.goToSlide(this.currentSlide < maxSlide ? this.currentSlide + 1 : 0);
+    }
+
+    prevSlide() {
+        const cards = this.querySelectorAll('.pc-card');
+        const maxSlide = cards.length - 1;
+        this.goToSlide(this.currentSlide > 0 ? this.currentSlide - 1 : maxSlide);
     }
 
     handlePlanCleared() {
@@ -214,6 +312,11 @@ class PriceCards extends HTMLElement {
                 setTimeout(() => {
                     card.classList.add('pc-animate-selection');
                 }, 50);
+                
+                // Опционально: переключить слайдер на выбранный план на мобильном
+                if (window.innerWidth <= 768) {
+                    this.goToSlide(index);
+                }
             } else {
                 card.classList.remove('pc-selected-card');
                 

@@ -14,3 +14,12 @@
         padding: 100px 380px 50px 380px;
     }
 }
+
+@media (max-width: 756px) {
+ 
+    .contact-page {
+        padding: 0 0px 50px 0px;
+        
+    }
+
+}
