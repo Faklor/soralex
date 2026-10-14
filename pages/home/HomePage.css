@@ -199,7 +199,7 @@ top-playables-slider {
 
     .empty{
         display: block;
-        min-height: 1200px;
+        min-height: 700px;
     }
     
     .phone-showcase {
@@ -213,12 +213,38 @@ top-playables-slider {
 
     .bg-looper-wrapper {
         position: absolute;
-        top: 420px;
+        top: 360px;
         left:5px;
        
         height: 1000px;    
         overflow: hidden;  
         z-index: 0;
+        
+       
+    }
+
+    
+}
+
+@media (max-width: 470px) {
+   
+  
+    .bg-looper-wrapper {
+        
+        top: 420px;
+        
+       
+    }
+
+    
+}
+
+@media (max-width: 376px) {
+   
+  
+    .bg-looper-wrapper {
+        
+        top: 480px;
         
        
     }

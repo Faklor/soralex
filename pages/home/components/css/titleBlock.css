@@ -81,9 +81,9 @@
 
 
 /* === 768px: Планшеты портрет / Большие мобильные === */
-@media (min-width: 481px) and (max-width: 768px) {
+@media (max-width: 500px) {
     .hero-block h1 {
-        font-size: 52px;
+        font-size: 25px;
          max-width: 600px;
         margin:0px auto;
         padding-bottom: 40px;
@@ -112,11 +112,42 @@
         max-width: 100%;
     }
 }
+@media (max-width: 769px) {
+    .hero-block h1 {
+        max-width: 600px;
+        margin:0px auto;
+        font-size: 40px;
+        text-align: center;
+        padding-bottom: 40px;
+    }
+    
+    .hero-block p {
+        font-size: 18px;
+          max-width: 600px;
+        margin:0px auto;
+        text-align: start;
+        padding-bottom: 40px;
+    }
+    
+    .buttons {
+        
+        max-width: 600px;
+        margin:0 auto;
+        flex-direction: column;
+        
+    }
+    
+    .btn {
+        width: 100%;
+        max-width: 100%;
+    }
+}
 
 /* === 1024px: Планшеты альбом === */
-@media (min-width: 769px) and (max-width: 1024px) {
+@media (max-width: 1024px) {
     .hero-block h1 {
         font-size: 40px;
+        text-align: start;
     }
     
     .hero-block p {
@@ -126,6 +157,8 @@
     .buttons {
         --btn-width: 200px;
         --btn-height: 52px;
+
+        width: 100%;
     }
 }
 
