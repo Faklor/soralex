@@ -60,7 +60,7 @@ class NetworkBackground extends HTMLElement {
 
             phonePivotName: 'Empty-phone',
             phoneModelPath: 'assets/models/IPHONE-15-PRO-MAX.glb',
-            phoneScale: 270.0,
+            phoneScale: 270.0, // 270
             phonePosX: 12.4,
             phonePosY: 12,
             phonePosZ: 65,
@@ -75,8 +75,8 @@ class NetworkBackground extends HTMLElement {
             playableJsonUrl: 'https://dashboard.mraid.io/portfolio.json',
             inactivityTimeout: 30000,
 
-            frameWidth: 740,  
-            frameHeight: 1400,
+            frameWidth: 375,//740  
+            frameHeight: 712,//1400
 
             screenOffsetX: 0,
             screenOffsetY: 0,
@@ -220,11 +220,11 @@ class NetworkBackground extends HTMLElement {
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
-                    padding: 48px 60px 0 60px;
+                    padding: 20px 30px 0 10px;
                     box-sizing: border-box;
                     color: white;
                     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-                    font-size: 30px;
+                    font-size: 20px;
                     font-weight: 300;
                     text-shadow: 0 0 10px rgba(0,0,0,0.8);
                     pointer-events: none;
@@ -674,9 +674,22 @@ class NetworkBackground extends HTMLElement {
 
         // 🔥 ИСПРАВЛЕНО: Убрано дублирование этого блока
         this.playableIframe.onload = () => {
-            if (this.preloaderElement) {
-                this.preloaderElement.classList.add('hidden');
+            // Убираем таймаут если загрузка успешная
+            if (this._loadTimeout) {
+                clearTimeout(this._loadTimeout);
+                this._loadTimeout = null;
             }
+            
+            // Скрываем прелоадер
+            if (this.preloaderElement) {
+                // Небольшая задержка чтобы контент успел отрисоваться
+                setTimeout(() => {
+                    this.preloaderElement.classList.add('hidden');
+                }, 100);
+            }
+            
+            // Убираем фон после загрузки
+            this.playableIframe.style.background = 'transparent';
         };
         
         wrapper.appendChild(this.playableIframe);
@@ -701,6 +714,13 @@ class NetworkBackground extends HTMLElement {
         if (this.currentPlayableUrl) {
             this.playableIframe.src = this.currentPlayableUrl;
         }
+
+        this.playableIframe.onerror = () => {
+            if (this._loadTimeout) clearTimeout(this._loadTimeout);
+            if (this.preloaderElement) {
+                this.preloaderElement.classList.add('hidden');
+            }
+        };
     }
 
     applyScreenOffsets() {
@@ -1280,10 +1300,24 @@ class NetworkBackground extends HTMLElement {
 
     setPlayableUrl(v) { 
         if (this.playableIframe) {
+            // 🔥 СНАЧАЛА показываем прелоадер
             if (this.preloaderElement) {
                 this.preloaderElement.classList.remove('hidden');
             }
+            
+            // Добавляем белый фон iframe чтобы не было "мерцания"
+            this.playableIframe.style.background = '#0D0D0F';
+            
+            // Устанавливаем новый URL
             this.playableIframe.src = v;
+            
+            // 🔥 Добавляем таймаут на случай если onload не сработает
+            if (this._loadTimeout) clearTimeout(this._loadTimeout);
+            this._loadTimeout = setTimeout(() => {
+                if (this.preloaderElement && !this.preloaderElement.classList.contains('hidden')) {
+                    this.preloaderElement.classList.add('hidden');
+                }
+            }, 3000); 
         }
     }
     

@@ -5,7 +5,7 @@ class AboutStory extends HTMLElement {
 
     connectedCallback() {
         const stats = [
-            { icon: 'assets/img/about/story/icon1.png', number: '2018', label: 'founded' },
+            { icon: 'assets/img/about/story/icon1.png', number: '2022', label: 'founded' },
             { icon: 'assets/img/about/story/icon2.png', number: '3000+', label: 'playables delivered' },
             { icon: 'assets/img/about/story/icon3.png', number: 'Global', label: 'clients worldwide' }
         ];
