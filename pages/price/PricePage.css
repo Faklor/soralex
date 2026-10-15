@@ -1,9 +1,30 @@
 /* === ОБЩИЙ КОНТЕЙНЕР ЦЕН === */
 .pc-wrapper {
-    background: #0a0a0c;
+    /* background: #0a0a0c; */
+    position:relative;
     padding: 60px 40px;
     margin-bottom: 60px;
     font-family: 'RobotoMedium', sans-serif;
+}
+
+.pc-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    pointer-events: none;
+    
+    /* 🔥 ЛИНЕЙНЫЙ градиент по горизонтали: от #0D0D0F по краям к #0a0a0c в центре */
+    background: linear-gradient(
+        to right,
+        #0D0D0F 0%,
+        #0a0a0c 15%,
+        #0a0a0c 85%,
+        #0D0D0F 100%
+    );
 }
 
 /* === ЗАГОЛОВОК СЕКЦИИ === */
@@ -118,6 +139,7 @@
     text-align: start;
 }
 
+
 .pc-card-subtitle {
     font-size: 0.8rem;
     color: #888;
@@ -126,6 +148,7 @@
     font-style: italic;
     text-align: center;
 }
+
 
 /* === СПИСОК ФИЧ === */
 .pc-card-features {
@@ -145,6 +168,11 @@
     font-size: 0.8rem;
     color: #b0b0b0;
     line-height: 1.4;
+}
+
+.pc-card-features li strong {
+    color: #ffffff;
+    font-weight: 600; 
 }
 
 .pc-feature-icon {

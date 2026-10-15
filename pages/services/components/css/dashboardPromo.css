@@ -9,9 +9,17 @@
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: radial-gradient(ellipse at 20% 50%, rgba(255, 0, 54, 0.15) 0%, transparent 55%),
-                radial-gradient(ellipse at 80% 50%, rgba(255, 0, 54, 0.1) 0%, transparent 60%);
+    
+    /* Немного растянули прозрачность самих градиентов */
+    background: 
+        radial-gradient(ellipse at 20% 50%, rgba(255, 0, 54, 0.15) 0%, transparent 65%),
+        radial-gradient(ellipse at 80% 50%, rgba(255, 0, 54, 0.1) 0%, transparent 70%);
+    
     pointer-events: none;
+    
+   
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
 }
 
 .promo-content {

@@ -23,7 +23,7 @@ class PriceInfo extends HTMLElement {
                     { icon: icons.game, text: 'Ad networks' },
                     { icon: icons.art, text: 'Game complexity' },
                     { icon: icons.dev, text: 'Timeline' },
-                    { icon: icons.testing, text: 'Custom art & animation' },
+                    { icon: icons.testing, text: 'Custom art & Animation' },
                     { icon: icons.support, text: 'Number of variations' }
                 ]
             },

@@ -16,7 +16,7 @@ class ProcessPage extends HTMLElement {
                         <h1><span>AI</span> isn't our shortcut<br>It's our production <span>advantage</span></h1>
                     </div>
                     <div class="process-description">
-                        <p>From the first idea to the final build, AI is integrated into our workflow—helping our team move faster, explore more creative directions and deliver better playables</p>
+                        <p>From the first idea to the final build, AI is integrated into our workflow: helping our team move faster, explore more creative directions and deliver better playables</p>
                     </div>
                 </section>
 

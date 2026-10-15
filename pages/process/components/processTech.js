@@ -20,7 +20,8 @@ class ProcessTech extends HTMLElement {
             { name: 'Claude', logo: 'assets/img/process/tech/ai2.png' },
             { name: 'Midjourney', logo: 'assets/img/process/tech/ai3.png' },
             { name: 'Stable Diffusion', logo: 'assets/img/process/tech/ai4.png' },
-            { name: 'GitHub Copilot', logo: 'assets/img/process/tech/ai5.png' }
+            { name: 'GitHub Copilot', logo: 'assets/img/process/tech/ai5.png' },
+            { name: 'Gemini', logo: 'assets/img/process/tech/ai6.png' }
         ];
 
         this.innerHTML = `

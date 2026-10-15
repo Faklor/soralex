@@ -4,8 +4,28 @@
     padding: 20px 80px 50px 80px;
     animation: fadeIn 0.8s ease-out;
     font-family: "RobotoMedium";
-    background: #0a0a0c;
+    /* background: #0a0a0c; */
     
+}
+
+.process-page::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    pointer-events: none;
+    
+    /* 🔥 ЛИНЕЙНЫЙ градиент по горизонтали: от #0D0D0F по краям к #0a0a0c в центре */
+    background: linear-gradient(
+        to right,
+        #0D0D0F 0%,
+        #0a0a0c 15%,
+        #0a0a0c 85%,
+        #0D0D0F 100%
+    );
 }
 
 

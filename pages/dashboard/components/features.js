@@ -50,7 +50,7 @@ class DashboardFeatures extends HTMLElement {
             },
             {
                 icon: 'assets/img/dashboard/features/icon4.png',
-                title: 'Export & build',
+                title: 'Export & Build',
                 subtitle: 'Production ready builds for all major networks',
                 description: 'Export anywhere',
                 details: 'Build and export to all major ad platforms in one click',

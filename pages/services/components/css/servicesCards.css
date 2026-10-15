@@ -30,6 +30,7 @@
     max-width: 600px;
     justify-self: end;
     font-family: 'RobotoLight', sans-serif;
+        align-self: center;
 }
 
 .services-grid {

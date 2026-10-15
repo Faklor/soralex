@@ -13,7 +13,7 @@ class DashboardShowcase extends HTMLElement {
             },
             {
                 icon: 'assets/img/dashboard/icons/icon2.png',
-                title: 'Save & manage',
+                title: 'Save & Manage',
                 description: 'Create and save multiple versions of your playable'
             },
             {

@@ -28,7 +28,7 @@ class AppFooter extends HTMLElement {
                             <ul>
                                 <li><a href="#home">Home</a></li>
                                 <li><a href="#process">Process & Technology</a></li>
-                                <li><a href="#portfolio">Portfolio</a></li>
+                                <li><a href="#portfolio">Portfolio & Solutions</a></li>
                                 <li><a href="#dashboard">Dashboard</a></li>
                                 <li><a href="#services">Creative Services</a></li>
                                 <li><a href="#contact">Contact</a></li>

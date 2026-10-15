@@ -167,9 +167,16 @@ class PortfolioSlider extends HTMLElement {
         dotsContainer.innerHTML = this.generateDots();
     }
 
+    // formatLabel(id) {
+    //     if (id === 'all') return 'All';
+    //     return id.charAt(0).toUpperCase() + id.slice(1).replace(/-/g, ' ');
+    // }
     formatLabel(id) {
         if (id === 'all') return 'All';
-        return id.charAt(0).toUpperCase() + id.slice(1).replace(/-/g, ' ');
+        
+        return id
+            .replace(/-/g, ' ')
+            .replace(/\b\w/g, char => char.toUpperCase());
     }
 
     renderSlider() {
@@ -177,7 +184,7 @@ class PortfolioSlider extends HTMLElement {
             
             <section class="portfolio-slider-section">
                 <div class="slider-header">
-                    <div class="header-left"><h2>Portfolio & solutions</h2></div>
+                    <div class="header-left"><h2>Portfolio & Solutions</h2></div>
                     <div class="header-right"><p>Explore our playables, choose the right format for your campaign and find a solution that fits your needs</p></div>
                 </div>
                 

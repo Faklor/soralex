@@ -10,7 +10,7 @@ class ProcessSteps extends HTMLElement {
         const processItems = [
             {
                 number: '01',
-                title: 'Idea & concept',
+                title: 'Idea & Concept',
                 description: 'We turn your brief or idea into playable concepts, mechanics and scenarios',
                 icon: 'assets/img/process/idea.svg',
                 image: 'assets/img/process/preview/preview2.png',
@@ -26,7 +26,7 @@ class ProcessSteps extends HTMLElement {
             },
             {
                 number: '03',
-                title: 'Art & animation',
+                title: 'Art & Animation',
                 description: 'We create high-quality visuals and animations that bring your playable to life',
                 icon: 'assets/img/process/art.svg',
                 image: 'assets/img/process/preview/preview4.png',
@@ -50,7 +50,7 @@ class ProcessSteps extends HTMLElement {
             },
             {
                 number: '06',
-                title: 'Launch & support',
+                title: 'Launch & Support',
                 description: 'We deliver, monitor results and support your campaign for growth',
                 icon: 'assets/img/process/support.svg',
                 image: 'assets/img/process/preview/preview6.png',
