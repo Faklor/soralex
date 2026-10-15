@@ -508,7 +508,7 @@
         grid-template-columns: 1fr;
     }
     .ac-team-photo {
-        max-height: 300px;
+        max-height: 400px;
     }
     .ac-package-header {
         flex-wrap: wrap;
@@ -535,6 +535,6 @@
         padding: 18px;
     }
     .ac-team-photo {
-        max-height: 250px;
+        max-height: 400px;
     }
 }

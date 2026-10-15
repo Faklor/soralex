@@ -316,11 +316,19 @@ class NetworkBackground extends HTMLElement {
                 if (!this.playableIframe) return;
 
                 if (this.isInView) {
+
+                     if (this.isPaused && this._isInitialized) {
+                        this.startAnimation();
+                    }
                     
                     if (this.currentPlayableUrl && this.playableIframe.src !== this.currentPlayableUrl) {
                         this.playableIframe.src = this.currentPlayableUrl;
                     }
                 } else {
+
+                     if (!this.isPaused) {
+                        this.pause();
+                    }
                     
                     if (this.playableIframe.src !== 'about:blank') {
                         this.playableIframe.src = 'about:blank';
@@ -329,7 +337,7 @@ class NetworkBackground extends HTMLElement {
             });
         }, {
             root: null,
-            rootMargin: '0px 0px -10% 0px', 
+             rootMargin: '50px 0px 50px 0px',
             threshold: 0.1 
         });
 
@@ -353,7 +361,16 @@ class NetworkBackground extends HTMLElement {
         this.renderFrame();
         if (!this.isPaused) this.startAnimation();
 
-        this.resizeObserver = new ResizeObserver(() => this.onResize());
+        let resizeTimeout;
+        this.resizeObserver = new ResizeObserver(() => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                
+                if (this.isInView) {
+                    this.onResize();
+                }
+            }, 150); 
+        });
         this.resizeObserver.observe(this);
         
         window.addEventListener('mousemove', this.handleMouseMove);

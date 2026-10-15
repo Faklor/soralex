@@ -247,7 +247,7 @@
     }
     
     .ds-image {
-        order: -1;
+        /* order: -1; */
         justify-content: center;
     }
     
