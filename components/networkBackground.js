@@ -373,10 +373,28 @@ class NetworkBackground extends HTMLElement {
         this.style.setProperty('--vignette-outer', outer + '%');
     }
 
+    // handleMouseMove(event) {
+    //     this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    //     this.mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+    //     if (this.phonePivot && this.camera) {
+    //         const phonePos = new THREE.Vector3();
+    //         this.phonePivot.getWorldPosition(phonePos);
+    //         phonePos.project(this.camera);
+            
+    //         const screenX = (phonePos.x * 0.5 + 0.5) * window.innerWidth;
+    //         const screenY = (-(phonePos.y * 0.5) + 0.5) * window.innerHeight;
+            
+    //         const distance = Math.hypot(event.clientX - screenX, event.clientY - screenY);
+    //         this.isHoveringPhone = distance < 250; 
+    //     }
+    // }
+
     handleMouseMove(event) {
         this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
         this.mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
+        let newHoverState = false;
         if (this.phonePivot && this.camera) {
             const phonePos = new THREE.Vector3();
             this.phonePivot.getWorldPosition(phonePos);
@@ -386,9 +404,96 @@ class NetworkBackground extends HTMLElement {
             const screenY = (-(phonePos.y * 0.5) + 0.5) * window.innerHeight;
             
             const distance = Math.hypot(event.clientX - screenX, event.clientY - screenY);
-            this.isHoveringPhone = distance < 250; 
+            newHoverState = distance < 250; // Радиус зоны ховера
+        }
+
+        // 🔥 ЕСЛИ СОСТОЯНИЕ ХОВЕРА ИЗМЕНИЛОСЬ, ОБНОВЛЯЕМ ЗВУК
+        if (newHoverState !== this.isHoveringPhone) {
+            this.isHoveringPhone = newHoverState;
+            this.updateAudioState();
         }
     }
+
+    setIframeMuteState(isMuted) {
+        if (!this.playableIframe || !this.playableIframe.contentWindow) return;
+        
+        const targetWindow = this.playableIframe.contentWindow;
+        const actionCmd = isMuted ? 'muteSounds' : 'unmuteSounds';
+
+        // 🔥 1. ПРЯМОЙ ВЫЗОВ MRAID SDK (Тот самый, который сработал в твоей консоли)
+        try {
+            const sdk = targetWindow.MraidSDK || targetWindow.mraidSDK || targetWindow.mraid;
+            if (sdk && sdk.Behavior && sdk.Behavior.Sound) {
+                if (isMuted && typeof sdk.Behavior.Sound.muteSounds === 'function') {
+                    sdk.Behavior.Sound.muteSounds();
+                    console.log("✅ MraidSDK: звук выключен напрямую");
+                } else if (!isMuted && typeof sdk.Behavior.Sound.unmuteSounds === 'function') {
+                    sdk.Behavior.Sound.unmuteSounds();
+                    console.log("✅ MraidSDK: звук включен напрямую");
+                }
+            }
+        } catch (e) {
+            // Если CORS внезапно заблокирует, мы тихо перейдём к запасным вариантам ниже
+        }
+
+        // 🔥 2. Отправляем команды через postMessage (запасной вариант, если прямой доступ заблокирован)
+        const muteCommands = [
+            { event: isMuted ? 'mute' : 'unmute' },
+            { method: isMuted ? 'mute' : 'unmute' },
+            { action: isMuted ? 'mute' : 'unmute' },
+            { type: `MraidSDK.Behavior.Sound.${actionCmd}` },
+            { command: actionCmd }
+        ];
+
+        muteCommands.forEach(cmd => {
+            targetWindow.postMessage(JSON.stringify(cmd), '*');
+        });
+
+        targetWindow.postMessage(isMuted ? 'mute' : 'unmute', '*');
+        targetWindow.postMessage(actionCmd, '*');
+        targetWindow.postMessage(`MraidSDK.Behavior.Sound.${actionCmd}`, '*');
+
+        // 🔥 3. Прямое управление media элементами и Howler (на всякий случай)
+        try {
+            const iframeDoc = targetWindow.document;
+            iframeDoc.querySelectorAll('video, audio').forEach(media => {
+                media.muted = isMuted;
+                if (isMuted) {
+                    media.pause();
+                } else {
+                    media.play().catch(() => {}); 
+                }
+            });
+
+            if (targetWindow.Howler) {
+                targetWindow.Howler.mute(isMuted);
+            }
+        } catch (e) {
+            // Игнорируем ошибки CORS
+        }
+    }
+    
+
+    updateAudioState() {
+        // Если мышь НА телефоне -> включаем звук (isMuted = false)
+        // Если мышь ВНЕ телефона -> выключаем звук (isMuted = true)
+        this.isMuted = !this.isHoveringPhone;
+        
+        // Обновляем иконку кнопки (если она существует)
+        if (this.muteBtn) {
+            const iconUnmuted = this.muteBtn.querySelector('.icon-unmuted');
+            const iconMuted = this.muteBtn.querySelector('.icon-muted');
+            if (iconUnmuted && iconMuted) {
+                iconUnmuted.style.display = this.isMuted ? 'none' : 'block';
+                iconMuted.style.display = this.isMuted ? 'block' : 'none';
+            }
+        }
+
+        // Применяем состояние к iframe
+        this.setIframeMuteState(this.isMuted);
+    }
+
+    
 
     initThreeJS() {
         const canvas = this.shadowRoot.getElementById('network-canvas');
@@ -555,30 +660,16 @@ class NetworkBackground extends HTMLElement {
 
     toggleMute() {
         this.isMuted = !this.isMuted;
-
-        const iconUnmuted = this.muteBtn.querySelector('.icon-unmuted');
-        const iconMuted = this.muteBtn.querySelector('.icon-muted');
-        if (this.isMuted) {
-            iconUnmuted.style.display = 'none';
-            iconMuted.style.display = 'block';
-        } else {
-            iconUnmuted.style.display = 'block';
-            iconMuted.style.display = 'none';
+        
+        if (this.muteBtn) {
+            const iconUnmuted = this.muteBtn.querySelector('.icon-unmuted');
+            const iconMuted = this.muteBtn.querySelector('.icon-muted');
+            if (iconUnmuted) iconUnmuted.style.display = this.isMuted ? 'none' : 'block';
+            if (iconMuted) iconMuted.style.display = this.isMuted ? 'block' : 'none';
         }
-
-        try {
-            const iframeDoc = this.playableIframe.contentDocument || this.playableIframe.contentWindow.document;
-            iframeDoc.querySelectorAll('video, audio').forEach(media => {
-                media.muted = this.isMuted;
-                if (this.isMuted) media.pause();
-            });
-
-            if (iframeDoc.defaultView.Howler) {
-                iframeDoc.defaultView.Howler.mute(this.isMuted);
-            }
-        } catch (e) {
-            // CORS ошибка - это нормально для чужих доменов
-        }
+        
+        // Вызываем наш обновлённый метод, который теперь делает прямой вызов SDK
+        this.setIframeMuteState(this.isMuted);
     }
 
     createScreenObject() {
