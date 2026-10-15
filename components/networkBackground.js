@@ -11,9 +11,11 @@ class NetworkBackground extends HTMLElement {
         this.isPaused = false;
         this.time = 0;
         this.animationId = null;
+        this.viewportObserver = null; 
+          this.isInView = false;
         
         
-        // 🔥 НОВОЕ: Флаги для отложенной загрузки
+        
         this._isInitialized = false;
         this._observer = null;
 
@@ -287,18 +289,17 @@ class NetworkBackground extends HTMLElement {
 
         this.applyVignetteCSS();
 
-        // 2. 🔥 ГЛАВНАЯ ОПТИМИЗАЦИЯ: Отложенная инициализация
-        // Мы не грузим Three.js сразу. Мы ждем, пока элемент появится на экране (с запасом 300px)
+        
         this._observer = new IntersectionObserver((entries) => {
             if (entries[0].isIntersecting && !this._isInitialized) {
                 this._isInitialized = true;
-                this._observer.disconnect(); // Отключаем наблюдение, оно больше не нужно
+                this._observer.disconnect(); 
                 
-                // Используем requestIdleCallback, чтобы выполнить тяжелый код, когда процессор свободен
+                
                 if ('requestIdleCallback' in window) {
                     requestIdleCallback(() => this._heavyInit(), { timeout: 1000 });
                 } else {
-                    setTimeout(() => this._heavyInit(), 100); // Фолбэк для Safari
+                    setTimeout(() => this._heavyInit(), 100); 
                 }
             }
         }, { rootMargin: '300px' });
@@ -306,7 +307,36 @@ class NetworkBackground extends HTMLElement {
         this._observer.observe(this);
     }
 
-    // 3. Вся тяжелая логика вынесена в отдельный метод
+    setupViewportObserver() {
+        this.viewportObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                
+                this.isInView = entry.isIntersecting; 
+                
+                if (!this.playableIframe) return;
+
+                if (this.isInView) {
+                    
+                    if (this.currentPlayableUrl && this.playableIframe.src !== this.currentPlayableUrl) {
+                        this.playableIframe.src = this.currentPlayableUrl;
+                    }
+                } else {
+                    
+                    if (this.playableIframe.src !== 'about:blank') {
+                        this.playableIframe.src = 'about:blank';
+                    }
+                }
+            });
+        }, {
+            root: null,
+            rootMargin: '0px 0px -10% 0px', 
+            threshold: 0.1 
+        });
+
+        this.viewportObserver.observe(this);
+    }
+
+    
     _heavyInit() {
         this.initThreeJS();
         this.createPhoneBacklights();
@@ -318,6 +348,7 @@ class NetworkBackground extends HTMLElement {
         
         this.loadPlayablesData();
         this.setupInteractionListeners();
+          this.setupViewportObserver();
         
         this.renderFrame();
         if (!this.isPaused) this.startAnimation();
@@ -373,28 +404,10 @@ class NetworkBackground extends HTMLElement {
         this.style.setProperty('--vignette-outer', outer + '%');
     }
 
-    // handleMouseMove(event) {
-    //     this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-    //     this.mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-
-    //     if (this.phonePivot && this.camera) {
-    //         const phonePos = new THREE.Vector3();
-    //         this.phonePivot.getWorldPosition(phonePos);
-    //         phonePos.project(this.camera);
-            
-    //         const screenX = (phonePos.x * 0.5 + 0.5) * window.innerWidth;
-    //         const screenY = (-(phonePos.y * 0.5) + 0.5) * window.innerHeight;
-            
-    //         const distance = Math.hypot(event.clientX - screenX, event.clientY - screenY);
-    //         this.isHoveringPhone = distance < 250; 
-    //     }
-    // }
-
     handleMouseMove(event) {
         this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
         this.mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
-        let newHoverState = false;
         if (this.phonePivot && this.camera) {
             const phonePos = new THREE.Vector3();
             this.phonePivot.getWorldPosition(phonePos);
@@ -404,94 +417,13 @@ class NetworkBackground extends HTMLElement {
             const screenY = (-(phonePos.y * 0.5) + 0.5) * window.innerHeight;
             
             const distance = Math.hypot(event.clientX - screenX, event.clientY - screenY);
-            newHoverState = distance < 250; // Радиус зоны ховера
-        }
-
-        // 🔥 ЕСЛИ СОСТОЯНИЕ ХОВЕРА ИЗМЕНИЛОСЬ, ОБНОВЛЯЕМ ЗВУК
-        if (newHoverState !== this.isHoveringPhone) {
-            this.isHoveringPhone = newHoverState;
-            this.updateAudioState();
+            this.isHoveringPhone = distance < 250; 
         }
     }
 
-    setIframeMuteState(isMuted) {
-        if (!this.playableIframe || !this.playableIframe.contentWindow) return;
-        
-        const targetWindow = this.playableIframe.contentWindow;
-        const actionCmd = isMuted ? 'muteSounds' : 'unmuteSounds';
+      
 
-        // 🔥 1. ПРЯМОЙ ВЫЗОВ MRAID SDK (Тот самый, который сработал в твоей консоли)
-        try {
-            const sdk = targetWindow.MraidSDK || targetWindow.mraidSDK || targetWindow.mraid;
-            if (sdk && sdk.Behavior && sdk.Behavior.Sound) {
-                if (isMuted && typeof sdk.Behavior.Sound.muteSounds === 'function') {
-                    sdk.Behavior.Sound.muteSounds();
-                    console.log("✅ MraidSDK: звук выключен напрямую");
-                } else if (!isMuted && typeof sdk.Behavior.Sound.unmuteSounds === 'function') {
-                    sdk.Behavior.Sound.unmuteSounds();
-                    console.log("✅ MraidSDK: звук включен напрямую");
-                }
-            }
-        } catch (e) {
-            // Если CORS внезапно заблокирует, мы тихо перейдём к запасным вариантам ниже
-        }
-
-        // 🔥 2. Отправляем команды через postMessage (запасной вариант, если прямой доступ заблокирован)
-        const muteCommands = [
-            { event: isMuted ? 'mute' : 'unmute' },
-            { method: isMuted ? 'mute' : 'unmute' },
-            { action: isMuted ? 'mute' : 'unmute' },
-            { type: `MraidSDK.Behavior.Sound.${actionCmd}` },
-            { command: actionCmd }
-        ];
-
-        muteCommands.forEach(cmd => {
-            targetWindow.postMessage(JSON.stringify(cmd), '*');
-        });
-
-        targetWindow.postMessage(isMuted ? 'mute' : 'unmute', '*');
-        targetWindow.postMessage(actionCmd, '*');
-        targetWindow.postMessage(`MraidSDK.Behavior.Sound.${actionCmd}`, '*');
-
-        // 🔥 3. Прямое управление media элементами и Howler (на всякий случай)
-        try {
-            const iframeDoc = targetWindow.document;
-            iframeDoc.querySelectorAll('video, audio').forEach(media => {
-                media.muted = isMuted;
-                if (isMuted) {
-                    media.pause();
-                } else {
-                    media.play().catch(() => {}); 
-                }
-            });
-
-            if (targetWindow.Howler) {
-                targetWindow.Howler.mute(isMuted);
-            }
-        } catch (e) {
-            // Игнорируем ошибки CORS
-        }
-    }
     
-
-    updateAudioState() {
-        // Если мышь НА телефоне -> включаем звук (isMuted = false)
-        // Если мышь ВНЕ телефона -> выключаем звук (isMuted = true)
-        this.isMuted = !this.isHoveringPhone;
-        
-        // Обновляем иконку кнопки (если она существует)
-        if (this.muteBtn) {
-            const iconUnmuted = this.muteBtn.querySelector('.icon-unmuted');
-            const iconMuted = this.muteBtn.querySelector('.icon-muted');
-            if (iconUnmuted && iconMuted) {
-                iconUnmuted.style.display = this.isMuted ? 'none' : 'block';
-                iconMuted.style.display = this.isMuted ? 'block' : 'none';
-            }
-        }
-
-        // Применяем состояние к iframe
-        this.setIframeMuteState(this.isMuted);
-    }
 
     
 
@@ -1390,31 +1322,33 @@ class NetworkBackground extends HTMLElement {
     }
 
     setPlayableUrl(v) { 
+        
+        this.currentPlayableUrl = v; 
+        
         if (this.playableIframe) {
-            // 🔥 СНАЧАЛА показываем прелоадер
-            if (this.preloaderElement) {
-                this.preloaderElement.classList.remove('hidden');
-            }
             
-            // Добавляем белый фон iframe чтобы не было "мерцания"
-            this.playableIframe.style.background = '#0D0D0F';
-            
-            // Устанавливаем новый URL
-            this.playableIframe.src = v;
-            
-            // 🔥 Добавляем таймаут на случай если onload не сработает
-            if (this._loadTimeout) clearTimeout(this._loadTimeout);
-            this._loadTimeout = setTimeout(() => {
-                if (this.preloaderElement && !this.preloaderElement.classList.contains('hidden')) {
-                    this.preloaderElement.classList.add('hidden');
+            if (this.isInView) {
+                if (this.preloaderElement) {
+                    this.preloaderElement.classList.remove('hidden');
                 }
-            }, 3000); 
+                
+                this.playableIframe.style.background = '#0D0D0F';
+                this.playableIframe.src = v;
+                
+                if (this._loadTimeout) clearTimeout(this._loadTimeout);
+                this._loadTimeout = setTimeout(() => {
+                    if (this.preloaderElement && !this.preloaderElement.classList.contains('hidden')) {
+                        this.preloaderElement.classList.add('hidden');
+                    }
+                }, 3000); 
+            }
         }
     }
     
     disconnectedCallback() {
         this.pause();
-        if (this._observer) this._observer.disconnect(); // 🔥 Очистка наблюдателя
+        if (this._observer) this._observer.disconnect(); 
+         if (this.viewportObserver) this.viewportObserver.disconnect();
         window.removeEventListener('mousemove', this.handleMouseMove);
         if (this.resizeObserver) this.resizeObserver.disconnect();
         if (this.inactivityTimer) clearTimeout(this.inactivityTimer);
