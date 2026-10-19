@@ -1,30 +1,29 @@
 /* === ОБЩАЯ КАРТОЧКА === */
 .contact-cta {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
+    grid-template-columns: 1fr 2.5fr;
+    gap: 48px;
     align-items: center;
     background: rgba(63, 63, 63, 0.08);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 16px;
-    padding: 30px 48px;
-    margin: 50px 20px 50px;
+    padding: 48px 56px;
+    margin: 40px 0;
+    width: 100%;
+    box-sizing: border-box;
     position: relative;
     overflow: hidden;
-    
 }
-
-
 
 /* Декоративный красный паттерн справа */
 .contact-cta::before {
     content: '';
     position: absolute;
-    top: -50%;
-    right: -10%;
-    width: 400px;
-    height: 400px;
-    background: radial-gradient(circle, rgba(255, 0, 54, 0.15) 0%, transparent 70%);
+    top: -20%;
+    right: -5%;
+    width: 450px;
+    height: 450px;
+    background: radial-gradient(circle, rgba(255, 0, 54, 0.12) 0%, transparent 70%);
     pointer-events: none;
     z-index: 0;
 }
@@ -33,50 +32,51 @@
 .contact-content {
     position: relative;
     z-index: 1;
+    padding-right: 24px;
 }
 
 .contact-content h2 {
-    font-size: 52px;
+    font-size: 42px;
     font-weight: 300;
     color: #ffffff;
-    margin: 0 0 12px;
+    margin: 0 0 16px;
     line-height: 1.2;
 }
 
 .contact-content p {
-    font-size: 28px;
+    font-size: 20px;
     color: #a0a0a0;
-    margin: 0 0 24px;
+    margin: 0 0 28px;
     line-height: 1.5;
-    font-family: 'RobotoLight';
+    font-family: 'RobotoLight', sans-serif;
 }
 
 .contact-btn {
     display: inline-block;
-    padding: 14px 80px;
+    padding: 18px 44px;
     background: #FF0036;
     color: #ffffff;
     text-decoration: none;
-    font-weight: 300;
-    font-size: 1.5rem;
+    font-weight: 400;
+    font-size: 1.1rem;
     border-radius: 8px;
     transition: all 0.3s ease;
     border: none;
     cursor: pointer;
-    
+    min-width: 220px;
+    text-align: center;
 }
 
 .contact-btn:hover {
     background: #cc002b;
     transform: translateY(-2px);
-    /* box-shadow: 0 8px 20px rgba(255, 0, 54, 0.3); */
 }
 
-/* === ПРАВАЯ ЧАСТЬ === */
+/* === ПРАВАЯ ЧАСТЬ (5 ЭЛЕМЕНТОВ) === */
 .contact-features {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 40px 40px;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 80px;
     position: relative;
     z-index: 1;
 }
@@ -87,59 +87,141 @@
     align-items: center;
     text-align: center;
     position: relative;
+    width: 100%;
 }
-
-
 
 .feature-icon {
     width: auto;
-    height: 48px;
-    margin-bottom: 12px;
-    
-}
-
-.contact-feature:hover .feature-icon {
-   
+    height: 62px;
+    margin-bottom: 20px;
+    object-fit: contain;
 }
 
 .contact-feature p {
-    font-size: 24px;
+    font-size: 15px;
     color: #ffffff;
-    line-height: 1.1;
+    line-height: 1.4;
     margin: 0;
+    font-weight: 300;
+    max-width: 150px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 /* Вертикальные разделители между иконками */
 .feature-divider {
     position: absolute;
-    right: -12px;
-    top: 50%;
-    transform: translateY(-50%);
+    right: -40px; /* Половина от gap: 80px */
+    top: 15%;
+    height: 70%;
     width: 1px;
-    height: 100%;
-    padding: 40px 0;
-    background: #ffffff;
-    background: linear-gradient(180deg,rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0.1) 100%);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0.1) 100%);
 }
 
 /* === АДАПТАЦИЯ === */
+
+/* НОВЫЙ БРЕЙКПОИНТ: начинаем сжимать элементы ДО того, как блок станет высоким */
+@media (max-width: 1600px) {
+    .contact-cta {
+        padding: 30px 38px;
+        gap: 20px;
+    }
+    
+    .contact-features {
+        gap: 28px; /* Уменьшаем расстояние между иконками */
+    }
+    
+    .feature-icon {
+        height: 56px; /* Уменьшаем иконки */
+        margin-bottom: 16px;
+    }
+    
+    .contact-feature p {
+        font-size: 14px; /* Чуть мельче текст */
+    }
+    
+    .feature-divider {
+        right: -24px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .contact-cta {
+        grid-template-columns: 1fr 1.8fr; /* Правая часть уже не такая широкая */
+        padding: 36px 40px;
+        gap: 32px;
+    }
+    
+    .contact-content h2 {
+        font-size: 36px;
+    }
+    
+    .contact-content p {
+        font-size: 18px;
+    }
+    
+    .contact-features {
+        gap: 32px; /* Еще меньше gap */
+    }
+    
+    .feature-icon {
+        height: 48px; /* Еще меньше иконки */
+        margin-bottom: 12px;
+    }
+    
+    .contact-feature p {
+        font-size: 13px;
+        max-width: 120px;
+    }
+    
+    .feature-divider {
+        right: -16px;
+    }
+}
+
 @media (max-width: 1024px) {
     .contact-cta {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr; /* Одна колонка */
         gap: 32px;
-        padding: 32px;
+        padding: 32px 24px;
+        margin: 32px 16px;
     }
     
     .contact-content {
         text-align: center;
+        padding-right: 0;
     }
     
     .contact-content h2 {
-        font-size: 1.75rem;
+        font-size: 32px;
     }
     
+    .contact-content p {
+        font-size: 18px;
+        margin: 0 0 20px;
+    }
+    
+    .contact-btn {
+        padding: 16px 40px;
+    }
+    
+    /* Иконки в 2 ряда: 3 сверху + 2 снизу */
     .contact-features {
-        gap: 16px;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px 20px;
+        justify-items: center;
+    }
+    
+    .feature-icon {
+        height: 44px;
+        margin-bottom: 10px;
+    }
+    
+    .contact-feature p {
+        font-size: 13px;
+        max-width: 140px;
     }
     
     .feature-divider {
@@ -149,32 +231,48 @@
 
 @media (max-width: 768px) {
     .contact-cta {
-        margin: 40px 20px 0;
-        padding: 24px;
+        padding: 24px 20px;
+        margin: 24px 12px;
     }
     
     .contact-content h2 {
-        font-size: 1.5rem;
+        font-size: 28px;
     }
     
     .contact-content p {
-        font-size: 0.95rem;
+        font-size: 16px;
     }
     
+    .contact-btn {
+        width: 100%;
+        min-width: auto;
+        padding: 16px 32px;
+        font-size: 1rem;
+    }
+    
+    /* На мобильном — вертикальный список */
     .contact-features {
         grid-template-columns: 1fr;
-        gap: 24px;
+        gap: 20px;
     }
     
     .contact-feature {
         flex-direction: row;
         text-align: left;
         gap: 16px;
+        width: 100%;
     }
     
     .feature-icon {
         margin-bottom: 0;
         width: 40px;
         height: 40px;
+        flex-shrink: 0;
+    }
+    
+    .contact-feature p {
+        font-size: 14px;
+        max-width: none;
+        -webkit-line-clamp: unset;
     }
 }

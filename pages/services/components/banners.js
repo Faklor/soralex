@@ -10,10 +10,13 @@ class Banners extends HTMLElement {
  
     render() {
         this.innerHTML = `
-            
-            
             <section class="banners-hero">
-                <!-- Блик в правом верхнем углу -->
+                <!-- Живая сетка вместо статичной картинки -->
+                <div class="banners-grid-bg">
+                    <network-grid-bg></network-grid-bg>
+                </div>
+                
+                <!-- Блик в правом верхнем углу (оставляем как есть) -->
                 <img class="hero-blick" src="assets/img/blick.png" alt="">
                 
                 <div class="banners-content">

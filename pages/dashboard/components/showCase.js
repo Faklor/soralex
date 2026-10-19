@@ -36,7 +36,8 @@ class DashboardShowcase extends HTMLElement {
         this.innerHTML = `
             <section class="ds-section">
                 <div class="ds-bg-wrapper">
-                    <img src="assets/img/looper.png" alt="Network Background" class="ds-looper-image">
+                    <!--<img src="assets/img/looper.png" alt="Network Background" class="ds-looper-image">-->
+                    <network-grid-bg></network-grid-bg>
                 </div>
 
                 <div class="ds-content">

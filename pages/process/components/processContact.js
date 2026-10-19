@@ -17,6 +17,14 @@ class ProcessContact extends HTMLElement {
             {
                 icon: 'assets/img/process/contact/con3.png',
                 title: 'Focused on performance & quality'
+            },
+            {
+                icon: 'assets/img/process/contact/con4.png',
+                title: 'Fast turnaround & delivery'
+            },
+            {
+                icon: 'assets/img/process/contact/con5.png',
+                title: 'Creative & engaging ads'
             }
         ];
 
