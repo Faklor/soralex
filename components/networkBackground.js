@@ -1220,6 +1220,8 @@ class NetworkBackground extends HTMLElement {
                 c.phoneRotZ * rad
             );
             this.phonePivot.position.x = 0;
+
+           
             
            
             if (this.points) this.points.visible = false;

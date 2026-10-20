@@ -5,11 +5,7 @@
     animation: fadeIn 0.8s ease-out;
     font-family: 'RobotoMedium';
     overflow-x: hidden; 
-    
-    /* background-color: #000000; */
-
     margin-top: 120px;
-    
 }
 
 .hero-blick {
@@ -66,18 +62,11 @@
 }
 
 #network-canvas {
-   
     width: 1100px; 
     height: auto;  
-    
-    
-    /* width: 100%; */
-    /* height: 100%; */
-    /* object-fit: contain; */
 }
 
 /* === КОНТЕНТ ВЫШЕ ФОНА === */
-
 .hero-section,
 .trusted-section,
 .stats-section{
@@ -86,7 +75,6 @@
     pointer-events: none;
 }
 
-
 hero-block,
 features-list,
 trusted-by,
@@ -94,7 +82,6 @@ stats-grid,
 top-playables-slider {
     pointer-events: auto; 
 }
-
 
 .hero-block .buttons,
 .hero-block .btn {
@@ -108,22 +95,15 @@ top-playables-slider {
     gap: 60px;
     align-items: start;
     padding: 0 20px;
-  
-    
 }
+
 .empty{
     pointer-events: none;
 }
 
-/* .hero-content{
-    backdrop-filter: blur(1px); 
-     -webkit-backdrop-filter: blur(1px); 
-} */
-
 .trusted-section {
     margin-bottom: 20px;
     padding: 0 20px;
-    
 }
 
 .stats-section {
@@ -132,16 +112,12 @@ top-playables-slider {
 
 .features-list {
     align-self: start;
-    
-
 }
 
 @media (max-width: 1400px) {
-   .hero-section {
+    .hero-section {
         grid-template-columns: 1fr 1fr;
         gap: 40px;
-       
-        
     }
     
     .phone-showcase {
@@ -150,111 +126,97 @@ top-playables-slider {
     }
 
     .bg-looper-wrapper {
-        
         top: 43px;
-        left:150px;
-       
+        left: 150px;
         height: 800px;     
         overflow: hidden;  
         z-index: 0;
-       
     }
 }
-
 
 /* === АДАПТАЦИЯ === */
 @media (max-width: 1024px) {
     .home-page {
-         padding: 0px 0px 50px 0px;
+        padding: 0px 0px 50px 0px;
     }
     .hero-section {
         grid-template-columns: 1fr;
-         gap: 30px;
-       
-        
+        gap: 30px;
     }
     .bg-looper-wrapper {
-        
         top: 120px;
-        left:250px;
-       
+        left: 250px;
         height: 800px;     
         overflow: hidden;  
         z-index: 0;
-       
     }
     .empty{
         display: none;
     }
 }
 
+
 @media (max-width: 768px) {
-   
+    
+    .home-page {
+        display: flex;
+        flex-direction: column;
+        padding: 0 20px 50px 20px;
+    }
+    
     .hero-section {
+        order: 1; 
         grid-template-columns: 1fr;
-        gap: 0px;
-        margin-bottom: 60px;
+        gap: 10px;
+        margin-bottom: 20px;
         text-align: center;
     }
 
-    .empty{
-        display: block;
-        min-height: 700px;
+    
+    .empty {
+        display: none !important;
+    }
+    
+   
+    .bg-looper-wrapper {
+        order: 2; 
+        position: relative; 
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 1000px; 
+        overflow: hidden;  
+        z-index: 0;
+        margin-bottom: -340px;
+    }
+    
+    .trusted-section {
+        order: 3;
+        margin-bottom: 60px;
+    }
+    
+    .stats-section {
+        order: 4;
+        margin-bottom: 60px;
+    }
+    
+    .slider-section {
+        order: 5;
     }
     
     .phone-showcase {
         grid-column: auto;
     }
-    
-    .trusted-section,
-    .stats-section {
-        margin-bottom: 60px;
-    }
-
-    .bg-looper-wrapper {
-        position: absolute;
-        top: 360px;
-        left:5px;
-       
-        height: 1000px;    
-        overflow: hidden;  
-        z-index: 0;
-        
-       
-    }
-
-    
 }
 
 @media (max-width: 470px) {
-   
-  
     .bg-looper-wrapper {
-        
-        top: 420px;
-        
-       
+        height: 1000px; 
     }
-
-    
-}
-
-@media (max-width: 376px) {
-   
-  
-    .bg-looper-wrapper {
-        
-        top: 480px;
-        
-       
-    }
-
-    
 }
 
 
 @media (min-width: 2560px) {
- 
     .home-page {
         position: relative; 
         padding: 40px 380px 50px 380px;
