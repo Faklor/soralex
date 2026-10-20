@@ -64,17 +64,18 @@ class DashboardFeatures extends HTMLElement {
             },
             {
                 icon: 'assets/img/dashboard/features/icon5.png',
-                title: 'Version control',
-                subtitle: 'Save, manage and compare all your versions',
-                description: 'Track changes',
-                details: 'Keep track of all changes and easily rollback to previous versions',
+                title: 'AI Agent',
+                subtitle: 'Edit any playable with prompts',
+                description: 'Edit any playables with prompts',
+                details: 'Use our AI Agent directly in the Dashboard to quickly edit any playable and create new versions with simple text prompts. Change visuals, text, colors, characters, logos and other elements - without manual editing.',
                 items: [
-                    'Automatic versioning',
-                    'Compare versions',
-                    'Quick rollback',
-                    'Change history'
+                    'Edit texts, images, colors and characters',
+                    'Replace logos and UI elemnts',
+                    'Generate multiple versions instantly',
+                    'Keep your brand style and guidelines',
+                    'Preview and compare results'
                 ],
-                video: 'assets/video/video5.mp4'
+                video: 'assets/video/videoDash.mp4'
             }
         ];
 

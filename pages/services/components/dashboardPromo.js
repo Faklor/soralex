@@ -54,7 +54,7 @@ class DashboardPromo extends HTMLElement {
                     <div class="promo-video-wrapper">
                         <div class="video-container">
                             <video controls class="promo-video" playsinline>
-                                <source src="assets/video/videoDash.mp4" type="video/mp4">
+                                <source src="assets/video/video5.mp4" type="video/mp4">
                                 Your browser does not support the video tag.
                             </video>
                         </div>

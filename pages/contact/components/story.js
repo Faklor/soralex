@@ -19,7 +19,7 @@ class AboutStory extends HTMLElement {
                         <div class="as-text">
                             <h3 class="as-title">From games to playables</h3>
                             <p class="as-description">
-                                In 2018, <span class="text-red">Soralex Studio</span> was officially founded with one simple goal: build playable ads that people actually want to play. Today, we're a full-cycle playable studio with 1,000+ playables delivered worldwide.
+                                In 2022, <span class="text-red">Soralex Studio</span> was officially founded with one simple goal: build playable ads that people actually want to play. Today, we're a full-cycle playable studio with 1,000+ playables delivered worldwide.
                             </p>
                         </div>
 
