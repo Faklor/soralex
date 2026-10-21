@@ -1,7 +1,6 @@
 class DashboardShowcase extends HTMLElement {
     constructor() {
         super();
-        // this.attachShadow({ mode: 'open' });
     }
 
     connectedCallback() {
@@ -36,7 +35,6 @@ class DashboardShowcase extends HTMLElement {
         this.innerHTML = `
             <section class="ds-section">
                 <div class="ds-bg-wrapper">
-                    <!--<img src="assets/img/looper.png" alt="Network Background" class="ds-looper-image">-->
                     <network-grid-bg></network-grid-bg>
                 </div>
 
@@ -54,7 +52,7 @@ class DashboardShowcase extends HTMLElement {
                             and export production-ready builds for all major ad networks
                         </p>
                         <div class="ds-buttons">
-                            <a href="https://dashboard.mraid.io/" class="ds-btn-primary">
+                            <a href="https://dashboard.mraid.io/" class="ds-btn-primary" target="_blank">
                                 Login in Dashboard
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                                     <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -65,7 +63,19 @@ class DashboardShowcase extends HTMLElement {
                     </div>
 
                     <div class="ds-image">
-                        <img src="assets/img/dashboard/main.png" alt="Dashboard on laptop">
+                        <!-- ОБЕРТКА ДЛЯ НОУТБУКА И IFRAME -->
+                        <div class="ds-laptop-wrapper">
+                            <iframe 
+                                class="ds-dashboard-iframe"
+                                src="https://dashboard.mraid.io/"
+                                frameborder="0"
+                                allow="webgl; autoplay; fullscreen; microphone; camera; xr-spatial-tracking"
+                                sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
+                                title="Dashboard Preview"
+                                loading="lazy">
+                            </iframe>
+                            <img src="assets/img/dashboard/main.png" alt="Dashboard on laptop">
+                        </div>
                     </div>
                 </div>
 

@@ -140,6 +140,19 @@ network-grid-bg {
     display: flex;
     justify-content: flex-start;
 }
+.ds-dashboard-iframe {
+    position: absolute;
+    /* ⚠️ ВАЖНО: Подберите эти проценты под вырез экрана на вашем изображении main.png */
+    top: 11%;    
+    left: 12.5%; 
+    width: 75%;  
+    height: 100%; 
+    z-index: 1;
+    background: #1a1a1a; /* Цвет фона на случай, если картинка загрузится не сразу */
+    border-radius: 4px;  /* Скругление углов экрана */
+    pointer-events: auto; /* Разрешаем клики по iframe */
+    display: none;
+}
 
 .ds-image img {
     width: 100%;
