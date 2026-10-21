@@ -139,6 +139,15 @@ class PlayableModal extends HTMLElement {
 
     render() {
         this.shadowRoot.innerHTML = `
+            <!-- ДОБАВЛЕННЫЙ БЛОК: Скрываем переключатель устройств на мобильных -->
+            <style>
+                @media (max-width: 768px) {
+                    .device-selector-wrapper {
+                        display: none !important;
+                    }
+                }
+            </style>
+            
             <link rel="stylesheet" href="components/css/playableModal.css">
             <div class="modal-backdrop"></div>
             <div class="modal-content">
@@ -161,13 +170,6 @@ class PlayableModal extends HTMLElement {
                                     <path d="M59.7698 0H8.81361C3.3965 0 0 4.3965 0 9.81361V84.3971C0 89.8142 3.3965 94.2107 8.81361 94.2107H59.7698C65.187 94.2107 68.5835 89.8142 68.5835 84.3971V9.81361C68.5835 4.3965 65.187 0 59.7698 0ZM34.2917 90.2852C31.0336 90.2852 28.4036 87.6552 28.4036 84.3971C28.4036 81.1389 31.0336 78.5089 34.2917 78.5089C37.5498 78.5089 40.1799 81.1389 40.1799 84.3971C40.1799 87.6552 37.5498 90.2852 34.2917 90.2852ZM61.7326 75.5835H6.85089V7.77633H61.7326V75.5835Z" fill="currentColor"/>
                                 </svg>
                             </button>
-                            <!--
-                            <button class="device-btn" data-device="square" title="Square 1:1">
-                                <svg viewBox="0 0 81 94" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M70.3421 0H10.6579C4.77474 0 0 4.38667 0 9.79167V84.2083C0 89.6133 4.77474 94 10.6579 94H70.3421C76.2253 94 81 89.6133 81 84.2083V9.79167C81 4.38667 76.2253 0 70.3421 0ZM40.5 90.0833C36.9616 90.0833 35.1053 87.4592 35.1053 84.2083C35.1053 80.9575 36.9616 78.3333 40.5 78.3333C44.0384 78.3333 45.8947 80.9575 45.8947 84.2083C45.8947 87.4592 44.0384 90.0833 40.5 90.0833ZM72.4737 74.4167H8.52632V11.75H72.4737V74.4167Z" fill="currentColor"/>
-                                </svg>
-                            </button>
-                            -->
                         </div>
                         <div class="rotation-hint">Press again to rotate</div>
                     </div>
