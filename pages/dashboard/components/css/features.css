@@ -236,33 +236,28 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 80px;
-    height: 80px;
-    background: rgba(255, 0, 54, 0.9);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     cursor: pointer;
     opacity: 0;
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
     z-index: 5;
 }
 
 .df-video-wrapper.df-paused .df-play-overlay {
     opacity: 1;
+    pointer-events: auto;
 }
 
 .df-play-overlay:hover {
-    background: #FF0036;
+    
     transform: translate(-50%, -50%) scale(1.1);
 }
 
 .df-play-overlay svg {
-    width: 52px;
-    height: 52px;
-    fill: white;
-    margin-left: 4px; /* Небольшая коррекция для визуального центра треугольника */
+    width: 80px;
+    height: 80px;
+    
+    transition: transform 0.3s ease;
 }
 
 /* === КОНТРОЛЫ ВИДЕО === */

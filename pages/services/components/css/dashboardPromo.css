@@ -1,6 +1,9 @@
+/* ====================================================================
+   DASHBOARD PROMO SECTION (Полные стили)
+   ==================================================================== */
+
 .dashboard-promo {
     padding: 100px 120px;
-    /* background: linear-gradient(135deg, #1a0a0e 0%, #0a0a0c 100%); */
     position: relative;
     overflow: hidden;
 }
@@ -9,30 +12,28 @@
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
-    
-    /* Немного растянули прозрачность самих градиентов */
     background: 
         radial-gradient(ellipse at 20% 50%, rgba(255, 0, 54, 0.15) 0%, transparent 65%),
         radial-gradient(ellipse at 80% 50%, rgba(255, 0, 54, 0.1) 0%, transparent 70%);
-    
     pointer-events: none;
-    
-   
     -webkit-mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
     mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
 }
 
+/* === КОНТЕНТНАЯ СЕТКА === */
 .promo-content {
     width: 100%;
+    max-width: 1440px;
     margin: 0 auto;
     display: grid;
     grid-template-columns: 1fr 1.2fr;
-    gap: 60px; /* Раскомментировал и задал значение */
+    gap: 60px;
     align-items: center;
     position: relative;
     z-index: 1;
 }
 
+/* === ЛОГОТИП И ТЕКСТ === */
 .logo-wrapper {
     display: flex;
     align-items: center;
@@ -56,7 +57,7 @@
     font-weight: 600;
     color: #ffffff;
     letter-spacing: 0.5px;
-        margin-top: 0px;
+    margin-top: 0;
 }
 
 .promo-title {
@@ -76,6 +77,7 @@
     font-family: 'RobotoLight', sans-serif;
 }
 
+/* === КНОПКА CTA === */
 .promo-cta-btn {
     display: inline-flex;
     align-items: center;
@@ -104,56 +106,281 @@
     transform: translateX(4px);
 }
 
+/* ====================================================================
+   КАСТОМНЫЙ ВИДЕО ПЛЕЕР
+   ==================================================================== */
+
 .promo-video-wrapper {
     position: relative;
     border-radius: 16px;
     overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    background: #0a0a0c;
 }
 
 .video-container {
     position: relative;
     width: 100%;
-    background: #0a0a0c;
+    aspect-ratio: 16 / 9;
 }
 
 .promo-video {
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
     display: block;
-    border-radius: 16px;
     cursor: pointer;
 }
 
+/* Оверлей с большой кнопкой Play */
+.promo-play-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: opacity 0.3s ease, background 0.3s ease;
+    z-index: 2;
+}
+
+/* ИСПРАВЛЕНО: Убраны глобальные fill, чтобы сохранить красный круг и белый треугольник из SVG */
+.promo-play-overlay svg {
+    width: 80px;
+    height: 80px;
+    
+    transition: transform 0.3s ease;
+}
+
+.promo-play-overlay:hover svg {
+    transform: scale(1.1);
+    /* Убрали fill: #FF0036, чтобы не перекрашивать белый треугольник в красный */
+}
+
+.promo-video-wrapper:not(.promo-paused) .promo-play-overlay {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Контейнер элементов управления */
+.promo-video-controls {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 16px 20px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 3;
+}
+
+.promo-video-wrapper:hover .promo-video-controls,
+.promo-video-wrapper.promo-paused .promo-video-controls {
+    opacity: 1;
+}
+
+.promo-control-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.promo-progress-bar {
+    flex: 1;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+    cursor: pointer;
+    position: relative;
+    transition: height 0.2s ease;
+}
+
+.promo-progress-bar:hover {
+    height: 6px;
+}
+
+.promo-progress-fill {
+    height: 100%;
+    background: #FF0036;
+    border-radius: 2px;
+    width: 0%;
+    position: relative;
+    transition: width 0.1s linear;
+}
+
+.promo-progress-fill::after {
+    content: '';
+    position: absolute;
+    right: -5px;
+    top: 50%;
+    transform: translateY(-50%) scale(0);
+    width: 12px;
+    height: 12px;
+    background: #ffffff;
+    border-radius: 50%;
+    transition: transform 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.promo-progress-bar:hover .promo-progress-fill::after {
+    transform: translateY(-50%) scale(1);
+}
+
+.promo-time-display {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.9);
+    font-family: 'RobotoMedium', monospace;
+    min-width: 85px;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+.promo-control-buttons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Кнопки управления: просто белые иконки */
+.promo-control-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background 0.2s ease, transform 0.1s ease;
+}
+
+/* При наведении легкая белая подложка, но иконка остается белой */
+.promo-control-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.promo-control-btn:active {
+    transform: scale(0.9);
+}
+
+.promo-control-btn svg {
+    width: 24px;
+    height: 24px;
+    display: block;
+}
+
+/* Принудительно делаем иконки Play/Pause белыми */
+.promo-play-pause-btn svg {
+    fill: #FFFFFF !important;
+    stroke: none !important;
+}
+
+/* ====================================================================
+   АДАПТИВНОСТЬ (MEDIA QUERIES)
+   ==================================================================== */
+
 @media (max-width: 1200px) {
-    .promo-content { grid-template-columns: 1fr; gap: 50px; }
-    .promo-text { text-align: center; }
-    .logo-wrapper { justify-content: center; }
-    .promo-description { margin-left: auto; margin-right: auto; }
-    .promo-cta-btn { margin-left: auto; margin-right: auto; }
-    .promo-title { font-size: 2.5rem; }
+    .dashboard-promo {
+        padding: 80px 60px;
+    }
+    
+    .promo-content { 
+        grid-template-columns: 1fr; 
+        gap: 50px; 
+    }
+    
+    .promo-text { 
+        text-align: center; 
+    }
+    
+    .logo-wrapper { 
+        justify-content: center; 
+    }
+    
+    .promo-description { 
+        margin-left: auto; 
+        margin-right: auto; 
+    }
+    
+    .promo-cta-btn { 
+        margin-left: auto; 
+        margin-right: auto; 
+    }
+    
+    .promo-title { 
+        font-size: 2.5rem; 
+    }
 }
 
 @media (max-width: 768px) {
-    .dashboard-promo { padding: 60px 20px; }
-    .promo-title { font-size: 2rem; }
-    .promo-description { font-size: 1rem; }
-    .logo-text { font-size: 1rem; }
-    .animated-icon { width: 36px; height: 36px; }
+    .dashboard-promo { 
+        padding: 60px 20px; 
+    }
+    
+    .promo-title { 
+        font-size: 2rem; 
+    }
+    
+    .promo-description { 
+        font-size: 1rem; 
+    }
+    
+    .logo-text { 
+        font-size: 1rem; 
+    }
+    
+    .animated-icon { 
+        width: 36px; 
+        height: 36px; 
+    }
+
+    .promo-video-controls {
+        opacity: 1;
+        padding: 12px 16px;
+    }
+    
+    .promo-play-overlay svg {
+        width: 64px;
+        height: 64px;
+    }
+    
+    .promo-time-display {
+        font-size: 11px;
+        min-width: 70px;
+    }
+    
+    .promo-control-btn svg {
+        width: 20px;
+        height: 20px;
+    }
 }
 
 @media (max-width: 480px) {
-    .promo-title { font-size: 1.8rem; }
-    .promo-cta-btn { padding: 16px 28px; font-size: 0.95rem; }
+    .promo-title { 
+        font-size: 1.8rem; 
+    }
+    
+    .promo-cta-btn { 
+        padding: 16px 28px; 
+        font-size: 0.95rem; 
+    }
+    
+    .promo-control-bar {
+        gap: 8px;
+    }
 }
 
-
 @media (min-width: 2560px) {
- 
-
-
-    .dashboard-promo{
-        padding: 100px 420px ;
+    .dashboard-promo {
+        padding: 100px 420px;
     }
 }

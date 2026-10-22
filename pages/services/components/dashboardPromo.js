@@ -51,12 +51,52 @@ class DashboardPromo extends HTMLElement {
                         </a>
                     </div>
 
-                    <div class="promo-video-wrapper">
+                    <div class="promo-video-wrapper promo-paused">
                         <div class="video-container">
-                            <video controls class="promo-video" playsinline>
+                            <video class="promo-video" playsinline loop>
                                 <source src="assets/video/video5.mp4" type="video/mp4">
                                 Your browser does not support the video tag.
                             </video>
+                            
+                            <!-- ЦЕНТРАЛЬНЫЙ ОВЕРЛЕЙ: Красный круг с белым треугольником -->
+                            <div class="promo-play-overlay">
+                                <svg viewBox="0 0 80 80" width="80" height="80" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="40" cy="40" r="40" fill="#FF0036"/>
+                                    <path d="M32 26 L56 40 L32 54 Z" fill="#FFFFFF"/>
+                                </svg>
+                            </div>
+                            
+                            <div class="promo-video-controls">
+                                <div class="promo-control-bar">
+                                    <div class="promo-progress-bar">
+                                        <div class="promo-progress-fill"></div>
+                                    </div>
+                                    <span class="promo-time-display">0:00 / 0:00</span>
+                                </div>
+                                <div class="promo-control-buttons">
+                                    <!-- КНОПКА PLAY/PAUSE: Просто белая иконка -->
+                                    <button class="promo-control-btn promo-play-pause-btn" aria-label="Play/Pause">
+                                        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M8 5v14l11-7z" fill="#FFFFFF"/>
+                                        </svg>
+                                    </button>
+                                    
+                                    <!-- КНОПКА RESTART: Просто белая иконка -->
+                                    <button class="promo-control-btn promo-restart-btn" aria-label="Restart">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2">
+                                            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                                            <path d="M3 3v5h5"/>
+                                        </svg>
+                                    </button>
+                                    
+                                    <!-- КНОПКА FULLSCREEN: Просто белая иконка -->
+                                    <button class="promo-control-btn promo-fullscreen-btn" aria-label="Fullscreen">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -66,20 +106,108 @@ class DashboardPromo extends HTMLElement {
 
     initVideoControls() {
         const video = this.querySelector('.promo-video');
+        const playPauseBtn = this.querySelector('.promo-play-pause-btn');
+        const restartBtn = this.querySelector('.promo-restart-btn');
+        const playOverlay = this.querySelector('.promo-play-overlay');
+        const progressBar = this.querySelector('.promo-progress-bar');
+        const progressFill = this.querySelector('.promo-progress-fill');
+        const timeDisplay = this.querySelector('.promo-time-display');
+        const videoWrapper = this.querySelector('.promo-video-wrapper');
+        const fullscreenBtn = this.querySelector('.promo-fullscreen-btn');
+
         if (!video) return;
-        
-        video.addEventListener('click', () => {
-            video.paused ? video.play() : video.pause();
+
+        const togglePlay = () => {
+            if (video.paused) {
+                video.play();
+                videoWrapper.classList.remove('promo-paused');
+                playOverlay.style.opacity = '0';
+                playOverlay.style.pointerEvents = 'none';
+                this.updatePlayButton(playPauseBtn, true);
+            } else {
+                video.pause();
+                videoWrapper.classList.add('promo-paused');
+                playOverlay.style.opacity = '1';
+                playOverlay.style.pointerEvents = 'auto';
+                this.updatePlayButton(playPauseBtn, false);
+            }
+        };
+
+        playPauseBtn.addEventListener('click', togglePlay);
+        playOverlay.addEventListener('click', togglePlay);
+        video.addEventListener('click', togglePlay);
+
+        restartBtn.addEventListener('click', () => {
+            video.currentTime = 0;
+            video.play();
+            videoWrapper.classList.remove('promo-paused');
+            playOverlay.style.opacity = '0';
+            playOverlay.style.pointerEvents = 'none';
+            this.updatePlayButton(playPauseBtn, true);
         });
 
-        video.addEventListener('dblclick', () => {
-            if (video.requestFullscreen) video.requestFullscreen();
-            else if (video.webkitRequestFullscreen) video.webkitRequestFullscreen();
+        video.addEventListener('timeupdate', () => {
+            if (video.duration) {
+                const progress = (video.currentTime / video.duration) * 100;
+                progressFill.style.width = progress + '%';
+                
+                const currentTime = this.formatTime(video.currentTime);
+                const duration = this.formatTime(video.duration);
+                timeDisplay.textContent = `${currentTime} / ${duration}`;
+            }
         });
+
+        progressBar.addEventListener('click', (e) => {
+            if (video.duration) {
+                const rect = progressBar.getBoundingClientRect();
+                const pos = (e.clientX - rect.left) / rect.width;
+                video.currentTime = pos * video.duration;
+            }
+        });
+
+        if (fullscreenBtn) {
+            fullscreenBtn.addEventListener('click', () => {
+                if (!document.fullscreenElement) {
+                    if (videoWrapper.requestFullscreen) videoWrapper.requestFullscreen();
+                    else if (videoWrapper.webkitRequestFullscreen) videoWrapper.webkitRequestFullscreen();
+                    else if (videoWrapper.msRequestFullscreen) videoWrapper.msRequestFullscreen();
+                } else {
+                    if (document.exitFullscreen) document.exitFullscreen();
+                    else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+                    else if (document.msExitFullscreen) document.msExitFullscreen();
+                }
+            });
+        }
+    }
+
+    // ОБНОВЛЕНО: Теперь генерирует ТОЛЬКО белые иконки без красных кругов
+    updatePlayButton(button, isPlaying) {
+        if (!button) return;
+        if (isPlaying) {
+            // Белая иконка Pause
+            button.innerHTML = `
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" fill="#FFFFFF"/>
+                </svg>
+            `;
+        } else {
+            // Белая иконка Play
+            button.innerHTML = `
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8 5v14l11-7z" fill="#FFFFFF"/>
+                </svg>
+            `;
+        }
+    }
+
+    formatTime(seconds) {
+        if (isNaN(seconds)) return '0:00';
+        const mins = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60);
+        return `${mins}:${secs.toString().padStart(2, '0')}`;
     }
 
     startIconAnimation() {
-        // ИСПРАВЛЕНО: используем querySelector вместо несуществующего getElementById
         const rectTL = this.querySelector('#rect-tl');
         const rectTR = this.querySelector('#rect-tr');
         const rectBL = this.querySelector('#rect-bl');
@@ -122,4 +250,5 @@ class DashboardPromo extends HTMLElement {
         this.animationFrame = requestAnimationFrame(animate);
     }
 }
+
 customElements.define('dashboard-promo', DashboardPromo);

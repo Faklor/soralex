@@ -2,7 +2,7 @@
 .ds-section {
     position: relative;
     padding: 0 0 20px;
-    overflow: hidden;
+    /* overflow: hidden; */
     font-family: 'RobotoMedium', sans-serif;
     letter-spacing: 0.05em;
 }
@@ -271,9 +271,9 @@ network-grid-bg {
 /* === АДАПТАЦИЯ === */
 @media (max-width: 1440px) {
     .ds-content {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr;
         gap: 20px;
-        padding: 0 40px;
+        /* padding: 0 40px; */
     }
     
     .ds-image {
@@ -282,7 +282,7 @@ network-grid-bg {
     }
     
     .ds-image img {
-        max-width: 65%;
+        max-width: 90%;
         margin: 0 auto;
         display: block;
         margin-left: 0;
@@ -309,6 +309,7 @@ network-grid-bg {
 }
 
 @media (max-width: 1024px) {
+    
     .ds-title {
         font-size: 2.8rem;
     }
@@ -327,6 +328,11 @@ network-grid-bg {
 }
 
 @media (max-width: 768px) {
+    .ds-content {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 0 40px;
+    }
     .ds-section {
         padding: 10px 0 20px;
     }
