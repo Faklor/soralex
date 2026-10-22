@@ -390,6 +390,34 @@
 }
 
 
+@media (max-width: 2560px) {
+    .mechanics-slider.has-overflow{
+        max-width: 1130px;
+    }
+
+}
+
+
+
+@media (max-width: 1920px) {
+    .mechanics-slider.has-overflow{
+        max-width: 1130px;
+    }
+}
+
+
+@media (max-width: 1720px) {
+    .mechanics-slider.has-overflow{
+        max-width: 980px;
+    }
+}
+
+@media (max-width: 1620px) {
+    .mechanics-slider.has-overflow{
+        max-width: 830px;
+    }
+}
+
 @media (max-width: 1024px) {
     .slider-header { flex-direction: column; gap: 16px; padding: 0 30px; text-align: center; align-items: center;}
     .header-right p { text-align: left; }

@@ -324,7 +324,7 @@ class PortfolioSlider extends HTMLElement {
         const containerWidth = container.offsetWidth;
         
         // Для механик всегда показываем 8 кнопок (или меньше если их всего меньше)
-        const buttonsPerPage = 8;
+        const buttonsPerPage = 5;
         const scrollAmount = buttonsPerPage * (btnWidth + gap);
         
         const maxScroll = container.scrollWidth - container.offsetWidth;
